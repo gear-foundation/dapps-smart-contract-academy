@@ -68,16 +68,20 @@ export const TamagotchiInfoCard = () => {
             <div className="mt-8 text-white text-lg font-medium">
               <table className="block w-full text-left">
                 <tbody className="block space-y-8">
-                  <tr className="flex gap-8">
-                    <th className="flex-1 w-40 text-white text-opacity-70 font-medium">Owner ID:</th>
-                    <td className="flex-1 w-40 truncate">
-                      {tamagotchi.owner === account?.decodedAddress ? account?.meta.name : tamagotchi.owner}
-                    </td>
-                  </tr>
-                  <tr className="flex gap-8">
-                    <th className="flex-1 w-40 text-white text-opacity-70 font-medium">Age:</th>
-                    <td className="flex-1 w-40">{getTamagotchiAge(tamagotchi.dateOfBirth)}</td>
-                  </tr>
+                  {tamagotchi.owner && (
+                    <tr className="flex gap-8">
+                      <th className="flex-1 w-40 text-white text-opacity-70 font-medium">Owner ID:</th>
+                      <td className="flex-1 w-40 truncate">
+                        {tamagotchi.owner === account?.decodedAddress ? account?.meta.name : tamagotchi.owner}
+                      </td>
+                    </tr>
+                  )}
+                  {tamagotchi.dateOfBirth && (
+                    <tr className="flex gap-8">
+                      <th className="flex-1 w-40 text-white text-opacity-70 font-medium">Age:</th>
+                      <td className="flex-1 w-40">{getTamagotchiAge(tamagotchi.dateOfBirth)}</td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </div>
