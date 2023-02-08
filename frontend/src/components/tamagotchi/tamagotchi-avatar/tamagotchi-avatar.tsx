@@ -31,8 +31,8 @@ export const TamagotchiAvatar = ({
   energy,
   inBattle,
 }: TamagotchiAvatarProps) => {
-  const { tamagotchi, tamagotchiItems } = useTamagotchi();
   const { lesson } = useLessons();
+  const { tamagotchi, tamagotchiItems } = useTamagotchi();
   const [dead, setDead] = useState<boolean>(Boolean(isDead));
   const [currentEmotion, setCurrentEmotion] = useState<TamagotchiAvatarEmotions>(emotion);
   const [damage, setDamage] = useState<number>(0);
@@ -52,7 +52,7 @@ export const TamagotchiAvatar = ({
     } else {
       setItemsUsed(hasItem);
     }
-  }, [tamagotchiItems, hasItem, inBattle]);
+  }, [tamagotchiItems]);
 
   useEffect(() => {
     if (energy && !isActive) {
