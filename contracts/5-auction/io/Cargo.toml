@@ -1,0 +1,8 @@
+[package]
+name = "auction-io"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+gstd = { git = "https://github.com/gear-tech/gear.git", features = ["debug"] , branch = "testnet" }
+codec = { package = "parity-scale-codec", version = "3.2.1", default-features = false }

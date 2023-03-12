@@ -1,0 +1,16 @@
+[package]
+name = "program-factory"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+gstd = { git = "https://github.com/gear-tech/gear.git", branch = "testnet", features = ["debug"] }
+parity-scale-codec = { version = "3", default-features = false }
+scale-info = { version = "2", default-features = false }
+escrow-new-io = { path = "escrow/io/" }
+
+[build-dependencies]
+gear-wasm-builder = { git = "https://github.com/gear-tech/gear.git", branch = "testnet" }
+
+[dev-dependencies]
+gtest = { git = "https://github.com/gear-tech/gear.git", branch = "testnet" }
