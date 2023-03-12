@@ -1,0 +1,15 @@
+[package]
+name = "tamagotchi-auction"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+gstd = { git = "https://github.com/gear-tech/gear.git", features = ["debug"] , branch = "testnet" }
+parity-scale-codec = { version = "3", default-features = false }
+ft-main-io = { git = "https://github.com/gear-dapps/sharded-fungible-token.git" }
+ft-logic-io = { git = "https://github.com/gear-dapps/sharded-fungible-token.git" }
+auction-io = { path = "io" }
+tmg-io = { path = "../tmg-io" }
+
+[build-dependencies]
+gear-wasm-builder = { git = "https://github.com/gear-tech/gear.git", branch = "testnet"}

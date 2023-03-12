@@ -1245,10 +1245,10 @@
   dependencies:
     "@floating-ui/dom" "^1.1.1"
 
-"@gear-js/api@0.29.1":
-  version "0.29.1"
-  resolved "https://registry.yarnpkg.com/@gear-js/api/-/api-0.29.1.tgz#0438cb74febca7bc2bb46e11696bfb33efeed865"
-  integrity sha512-K6fa9gGI4IoeLw8Q7deu1QDQu7JevtMS2RUdRne+vdZrS3tXl0lC5aPXNHcoxQ7TyVXVvfOc9DJJo1NQ7UqhVw==
+"@gear-js/api@0.30.1":
+  version "0.30.1"
+  resolved "https://registry.yarnpkg.com/@gear-js/api/-/api-0.30.1.tgz#7babe17b9e22039c40889a92fbf755ede3171392"
+  integrity sha512-WJs7BgP26vclLKdP9rgu3oJ6EIvoyuLAO3f+ROCh/o7yb3rxIIsKgEvcbB7T7uzNYZ02NIPnCLO4Lww7Cver4A==
 
 "@gear-js/react-hooks@0.5.7":
   version "0.5.7"

@@ -1,0 +1,15 @@
+[package]
+name = "escrow-state"
+version = "0.1.0"
+edition = "2018"
+
+[dependencies]
+gmeta = {  git = "https://github.com/gear-tech/gear.git", features = ["codegen"], branch = "testnet" }
+gstd = { git = "https://github.com/gear-tech/gear.git", branch = "testnet" }
+parity-scale-codec = { version = "3", default-features = false }
+scale-info = { version = "2", default-features = false }
+escrow-io = { path = "../io" }
+
+[build-dependencies]
+gear-wasm-builder = { git = "https://github.com/gear-tech/gear.git", features = ["metawasm"], branch = "testnet" }
+
