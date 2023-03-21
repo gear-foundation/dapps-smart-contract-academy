@@ -1,4 +1,4 @@
-wsAddress: wss://rpc-node.gear-tech.io:443
+wsAddress: wss://node-workshop.gear.rs
 
 accounts:
   alice: //Alice
