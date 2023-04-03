@@ -28,9 +28,9 @@ export const AccountsList = ({ list, onChange }: Props) => {
     resetLesson();
   };
 
-  const handleCopy = (address: string) => {
+  const handleCopy = async (address: string) => {
     const decodedAddress = decodeAddress(address);
-    copyToClipboard(decodedAddress, alert);
+    await copyToClipboard(decodedAddress, alert);
   };
 
   return list.length > 0 ? (

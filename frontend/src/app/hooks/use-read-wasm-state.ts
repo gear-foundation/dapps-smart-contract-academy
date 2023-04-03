@@ -6,8 +6,7 @@ import type { HexString } from "@polkadot/util/types";
 import { useLessons, useTamagotchi } from "@/app/context";
 import { useWasmMetadata } from "./use-metadata";
 import type { TamagotchiState } from "@/app/types/lessons";
-import state2 from "@/assets/meta/state2.meta.wasm?raw";
-// import state2 from "@/assets/meta/state2.meta.wasm?url";
+import state2 from "@/assets/meta/state2.meta.wasm?url";
 
 type StateWasmResponse = {
   fed: number;
@@ -26,7 +25,6 @@ export function useThrottleWasmState(
   const [isStateRead, setIsStateRead] = useState(true);
 
   const { lesson } = useLessons();
-  console.log({ state2 });
   const metadata = useWasmMetadata(state2);
   const { tamagotchi, setTamagotchi } = useTamagotchi();
 

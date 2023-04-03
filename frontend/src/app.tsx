@@ -1,4 +1,5 @@
-import "./App.scss";
+import "./global.css";
+import "./app.scss";
 import { useApi, useAccount } from "@gear-js/react-hooks";
 import { Routing } from "./pages";
 import { ApiLoader } from "./components/loaders/api-loader";
