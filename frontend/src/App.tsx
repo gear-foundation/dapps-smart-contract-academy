@@ -1,10 +1,9 @@
-import './index.css';
-import './App.scss';
-import { useApi, useAccount } from '@gear-js/react-hooks';
-import { Footer, Header } from 'components/layout';
-import { ApiLoader } from 'components/loaders/api-loader';
-import { withProviders } from 'app/hocs';
-import { Routing } from './pages';
+import "./App.scss";
+import { useApi, useAccount } from "@gear-js/react-hooks";
+import { Routing } from "./pages";
+import { ApiLoader } from "./components/loaders/api-loader";
+import { Footer, Header } from "@/components/layout";
+import { withProviders } from "@/app/hocs";
 
 const Component = () => {
   const { isApiReady } = useApi();

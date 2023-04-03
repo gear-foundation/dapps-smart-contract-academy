@@ -1,7 +1,7 @@
-import { TamagotchiInfoCard } from 'components/tamagotchi/tamagotchi-info-card';
-import { TamagotchiAvatar } from 'components/tamagotchi/tamagotchi-avatar';
-import { ConnectAccount } from 'components/common/connect-account';
-import { useLessons, useTamagotchi } from 'app/context';
+import { useLessons, useTamagotchi } from "@/app/context";
+import { TamagotchiAvatar } from "@/components/tamagotchi/tamagotchi-avatar";
+import { TamagotchiInfoCard } from "@/components/tamagotchi/tamagotchi-info-card";
+import { ConnectAccount } from "@/components/common/connect-account";
 
 export const HomeCreateSection = () => {
   const { tamagotchi } = useTamagotchi();

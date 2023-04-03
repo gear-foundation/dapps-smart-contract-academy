@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
-import { useReadFullState } from '@gear-js/react-hooks';
-import { useFTStore, useLessons, useTamagotchi } from 'app/context';
-import { ItemsStoreResponse } from 'app/types/ft-store';
-import { ENV } from '../consts';
-import { useMetadata } from './use-metadata';
-import metaStore from 'assets/meta/meta-store.txt';
-import { getStoreItems } from '../utils';
+import { useEffect } from "react";
+import { useReadFullState } from "@gear-js/react-hooks";
+import { useMetadata } from "./use-metadata";
+import metaStore from "@/assets/meta/meta-store.txt";
+import { ENV } from "@/app/consts";
+import { useFTStore, useLessons, useTamagotchi } from "@/app/context";
+import { ItemsStoreResponse } from "@/app/types/ft-store";
+import { getStoreItems } from "@/app/utils";
 
 function useReadItemsStore<T>() {
   const { metadata } = useMetadata(metaStore);

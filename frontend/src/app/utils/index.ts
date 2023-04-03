@@ -1,23 +1,35 @@
-import { AlertContainerFactory } from '@gear-js/react-hooks';
-import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
-import { LOCAL_STORAGE } from '../consts';
-import { NotificationResponseTypes, NotificationType, TamagotchiState } from '../types/lessons';
-import { ItemsStoreResponse, StoreItemsNames, StoreItemType } from '../types/ft-store';
-import { HexString } from '@polkadot/util/types';
+import { AlertContainerFactory } from "@gear-js/react-hooks";
+import { InjectedAccountWithMeta } from "@polkadot/extension-inject/types";
+import { HexString } from "@polkadot/util/types";
+import {
+  NotificationResponseTypes,
+  NotificationType,
+  TamagotchiState,
+} from "@/app/types/lessons";
+import { LOCAL_STORAGE } from "@/app/consts";
+import type {
+  ItemsStoreResponse,
+  StoreItemsNames,
+  StoreItemType,
+} from "@/app/types/ft-store";
 
-export const copyToClipboard = async (key: string, alert: AlertContainerFactory, successfulText?: string) => {
+export const copyToClipboard = async (
+  key: string,
+  alert: AlertContainerFactory,
+  successfulText?: string
+) => {
   function unsecuredCopyToClipboard(text: string) {
-    const textArea = document.createElement('textarea');
+    const textArea = document.createElement("textarea");
     textArea.value = text;
     document.body.appendChild(textArea);
     textArea.focus();
     textArea.select();
     try {
-      document.execCommand('copy');
-      alert.success(successfulText || 'Copied');
+      document.execCommand("copy");
+      alert.success(successfulText || "Copied");
     } catch (err) {
-      console.error('Unable to copy to clipboard', err);
-      alert.error('Copy error');
+      console.error("Unable to copy to clipboard", err);
+      alert.error("Copy error");
     }
     document.body.removeChild(textArea);
   }
@@ -25,29 +37,33 @@ export const copyToClipboard = async (key: string, alert: AlertContainerFactory,
   if (window.isSecureContext && navigator.clipboard) {
     navigator.clipboard
       .writeText(key)
-      .then(() => alert.success(successfulText || 'Copied'))
-      .catch(() => alert.error('Copy error'));
+      .then(() => alert.success(successfulText || "Copied"))
+      .catch(() => alert.error("Copy error"));
   } else {
     unsecuredCopyToClipboard(key);
   }
 };
-export const isLoggedIn = ({ address }: InjectedAccountWithMeta) => localStorage[LOCAL_STORAGE.ACCOUNT] === address;
+export const isLoggedIn = ({ address }: InjectedAccountWithMeta) =>
+  localStorage[LOCAL_STORAGE.ACCOUNT] === address;
 
 export const getNotificationTypeValue = (
   str: NotificationResponseTypes,
-  tamagotchi?: TamagotchiState,
+  tamagotchi?: TamagotchiState
 ): NotificationType => {
   switch (str) {
-    case 'FeedMe':
+    case "FeedMe":
       return { FeedMe: tamagotchi ? tamagotchi?.fed : undefined };
-    case 'PlayWithMe':
+    case "PlayWithMe":
       return { PlayWithMe: tamagotchi ? tamagotchi?.entertained : undefined };
-    case 'WantToSleep':
+    case "WantToSleep":
       return { WantToSleep: tamagotchi ? tamagotchi?.rested : undefined };
   }
 };
 
-export const getStoreItems = (state: ItemsStoreResponse, programId: HexString) => {
+export const getStoreItems = (
+  state: ItemsStoreResponse,
+  programId: HexString
+) => {
   if (!state) return { store: [], tamagotchi: [] };
   const store: StoreItemType[] = [];
   const tamagotchi: StoreItemsNames[] = [];
@@ -65,7 +81,10 @@ export const getStoreItems = (state: ItemsStoreResponse, programId: HexString) =
   }
   return { store, tamagotchi };
 };
-export const getAttributesById = (state: ItemsStoreResponse | undefined, ids: number[]): StoreItemsNames[] => {
+export const getAttributesById = (
+  state: ItemsStoreResponse | undefined,
+  ids: number[]
+): StoreItemsNames[] => {
   if (!state) return [];
   if (ids.length < 1) return [];
 

@@ -1,8 +1,8 @@
-import { TooltipWrapper, Button, buttonStyles } from '@gear-js/ui';
-import clsx from 'clsx';
-import { useGetFTBalance } from 'app/hooks/use-ft-balance';
-import { Icon } from 'components/ui/icon';
-import { useApp } from 'app/context';
+import { TooltipWrapper, Button, buttonStyles } from "@gear-js/ui";
+import clsx from "clsx";
+import { useGetFTBalance } from "@/app/hooks/use-ft-balance";
+import { useApp } from "@/app/context";
+import { Icon } from "@/components/ui/icon";
 
 export const GetTokensBalance = () => {
   const { handler } = useGetFTBalance();
@@ -12,7 +12,7 @@ export const GetTokensBalance = () => {
     <div>
       <TooltipWrapper text="Get Tokens">
         <Button
-          className={clsx('group !p-2.5', buttonStyles.light)}
+          className={clsx("group !p-2.5", buttonStyles.light)}
           icon={() => (
             <>
               <Icon name="test-balance" width={20} height={20} />

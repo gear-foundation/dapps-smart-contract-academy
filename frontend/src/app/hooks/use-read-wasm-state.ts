@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'react';
-import { getStateMetadata, MessagesDispatched } from '@gear-js/api';
-import { useAlert, useApi } from '@gear-js/react-hooks';
-import type { AnyJson } from '@polkadot/types/types';
-import type { HexString } from '@polkadot/util/types';
-import { useLessons, useTamagotchi } from 'app/context';
-import { useWasmMetadata } from './use-metadata';
-import type { TamagotchiState } from 'app/types/lessons';
-import state2 from 'assets/meta/state2.meta.wasm';
+import { useEffect, useState } from "react";
+import { getStateMetadata, MessagesDispatched } from "@gear-js/api";
+import { useAlert, useApi } from "@gear-js/react-hooks";
+import type { AnyJson } from "@polkadot/types/types";
+import type { HexString } from "@polkadot/util/types";
+import { useLessons, useTamagotchi } from "@/app/context";
+import { useWasmMetadata } from "./use-metadata";
+import type { TamagotchiState } from "@/app/types/lessons";
+import state2 from "@/assets/meta/state2.meta.wasm?raw";
+// import state2 from "@/assets/meta/state2.meta.wasm?url";
 
 type StateWasmResponse = {
   fed: number;
@@ -14,28 +15,35 @@ type StateWasmResponse = {
   rested: number;
 };
 
-export function useThrottleWasmState(payload?: AnyJson, isReadOnError?: boolean) {
+export function useThrottleWasmState(
+  payload?: AnyJson,
+  isReadOnError?: boolean
+) {
   const { api } = useApi();
   const alert = useAlert();
   const [state, setState] = useState<StateWasmResponse>();
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [isStateRead, setIsStateRead] = useState(true);
 
   const { lesson } = useLessons();
+  console.log({ state2 });
   const metadata = useWasmMetadata(state2);
   const { tamagotchi, setTamagotchi } = useTamagotchi();
 
   const programId: HexString | undefined = lesson?.programId;
   const wasm: Buffer | Uint8Array | undefined = metadata?.buffer;
-  const functionName: string | undefined = 'current_state';
+  const functionName: string | undefined = "current_state";
 
-  const resetError = () => setError('');
+  const resetError = () => setError("");
 
   const readWasmState = () => {
     if (!programId || !wasm || !functionName) return;
 
     return getStateMetadata(wasm).then((stateMetadata) =>
-      api.programState.readUsingWasm({ programId, wasm, fn_name: functionName, argument: payload }, stateMetadata),
+      api.programState.readUsingWasm(
+        { programId, wasm, fn_name: functionName, argument: payload },
+        stateMetadata
+      )
     );
   };
 
@@ -75,11 +83,15 @@ export function useThrottleWasmState(payload?: AnyJson, isReadOnError?: boolean)
   };
 
   useEffect(() => {
-    if (!programId || !wasm || !functionName || (lesson && lesson.step < 2)) return;
+    if (!programId || !wasm || !functionName || (lesson && lesson.step < 2))
+      return;
 
     const interval = setInterval(() => readState(), 25000);
 
-    const unsub = api?.gearEvents.subscribeToGearEvent('MessagesDispatched', handleStateChange);
+    const unsub = api?.gearEvents.subscribeToGearEvent(
+      "MessagesDispatched",
+      handleStateChange
+    );
 
     return () => {
       clearInterval(interval);

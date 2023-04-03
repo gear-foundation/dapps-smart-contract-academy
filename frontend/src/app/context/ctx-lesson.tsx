@@ -1,7 +1,15 @@
-import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useRef, useState } from 'react';
-import { getProgramMetadata, ProgramMetadata } from '@gear-js/api';
-import type { LessonState } from 'app/types/lessons';
-import { getLessonAssets } from 'app/utils/get-lesson-assets';
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { getProgramMetadata, ProgramMetadata } from "@gear-js/api";
+import { LessonState } from "@/app/types/lessons";
+import { getLessonAssets } from "@/app/utils/get-lesson-assets";
 
 type Program = {
   lesson?: LessonState;
@@ -14,7 +22,7 @@ type Program = {
 
 export const LessonsCtx = createContext({} as Program);
 
-const key = 'tmgState';
+const key = "tmgState";
 
 const useLesson = (): Program => {
   const [lesson, setLesson] = useState<LessonState>();
@@ -35,7 +43,7 @@ const useLesson = (): Program => {
         .then((res) => res.text())
         .then((raw) => getProgramMetadata(`0x${raw}`))
         .then((meta) => setLessonMeta(meta))
-        .catch((e) => console.log('error', e));
+        .catch((e) => console.log("error", e));
     } else {
       if (!isParsed.current) {
         const ls = localStorage.getItem(key);

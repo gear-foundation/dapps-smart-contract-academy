@@ -1,8 +1,12 @@
-import { useEffect } from 'react';
-import { useAccount, useReadFullState, useSendMessage } from '@gear-js/react-hooks';
-import { HexString } from '@polkadot/util/types';
-import { useLessons, useTamagotchi } from 'app/context';
-import type { TamagotchiState } from 'app/types/lessons';
+import { useEffect } from "react";
+import {
+  useAccount,
+  useReadFullState,
+  useSendMessage,
+} from "@gear-js/react-hooks";
+import { HexString } from "@polkadot/util/types";
+import { useLessons, useTamagotchi } from "@/app/context";
+import type { TamagotchiState } from "@/app/types/lessons";
 
 export function useReadTamagotchi<T>() {
   const { lesson, lessonMeta } = useLessons();
@@ -22,7 +26,10 @@ export function useInitTamagotchi() {
     }
     if (state && isStateRead && account) {
       const { fed, rested, entertained, owner, allowedAccount } = state;
-      setTamagotchi({ ...state, isDead: [fed, rested, entertained].reduce((sum, a) => sum + a) === 0 });
+      setTamagotchi({
+        ...state,
+        isDead: [fed, rested, entertained].reduce((sum, a) => sum + a) === 0,
+      });
       const { decodedAddress } = account;
       setIsAdmin([owner, allowedAccount].includes(decodedAddress));
     }

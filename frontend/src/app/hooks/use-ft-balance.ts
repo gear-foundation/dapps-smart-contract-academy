@@ -1,9 +1,13 @@
-import { useReadFullState, useSendMessage } from '@gear-js/react-hooks';
-import type { HexString } from '@polkadot/util/types';
-import { useApp, useTamagotchi, useFTBalance, useLessons } from 'app/context';
-import { BalanceLogic, BalanceMain, BalanceStorage } from 'app/types/ft-wallet';
-import { useMetadata } from './use-metadata';
-import metaCode from 'assets/meta/meta-ft-code.txt';
+import { useReadFullState, useSendMessage } from "@gear-js/react-hooks";
+import type { HexString } from "@polkadot/util/types";
+import { useMetadata } from "./use-metadata";
+import metaCode from "@/assets/meta/meta-ft-code.txt";
+import { useApp, useFTBalance, useLessons } from "@/app/context";
+import type {
+  BalanceLogic,
+  BalanceMain,
+  BalanceStorage,
+} from "@/app/types/ft-wallet";
 
 export function useFtMessage() {
   const { metaMain, programId } = useFTBalance();
@@ -93,8 +97,13 @@ export function useGetFTBalance() {
       setIsPending(true);
 
       sendHandler(
-        { Message: { transaction_id: Math.floor(Math.random() * Date.now()), payload: [...encodedMint] } },
-        { onSuccess, onError },
+        {
+          Message: {
+            transaction_id: Math.floor(Math.random() * Date.now()),
+            payload: [...encodedMint],
+          },
+        },
+        { onSuccess, onError }
       );
     }
   };

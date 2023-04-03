@@ -1,12 +1,12 @@
-import type { ProviderProps } from '@gear-js/react-hooks';
-import { createContext } from 'react';
-import { ProgramMetadata } from '@gear-js/api';
-import { useMetadata } from '../hooks/use-metadata';
-import meta from 'assets/meta/meta-ft.txt';
-import metaLogic from 'assets/meta/meta-ft_logic.txt';
-import metaStorage from 'assets/meta/meta-ft_storage.txt';
-import { ENV } from '../consts';
-import { HexString } from '@polkadot/util/types';
+import type { ProviderProps } from "@gear-js/react-hooks";
+import { createContext } from "react";
+import { ProgramMetadata } from "@gear-js/api";
+import meta from "@/assets/meta/meta-ft.txt";
+import metaLogic from "@/assets/meta/meta-ft_logic.txt";
+import metaStorage from "@/assets/meta/meta-ft_storage.txt";
+import { HexString } from "@polkadot/util/types";
+import { ENV } from "@/app/consts";
+import { useMetadata } from "@/app/hooks/use-metadata";
 
 type Program = {
   programId: HexString;
@@ -16,7 +16,7 @@ type Program = {
 };
 
 const program: Program = {
-  programId: '' as HexString,
+  programId: "" as HexString,
   metaMain: {} as ProgramMetadata,
   metaLogic: {} as ProgramMetadata,
   metaStorage: {} as ProgramMetadata,

@@ -1,12 +1,12 @@
-import { Button, Input } from '@gear-js/ui';
-import { useForm } from '@mantine/form';
-import { Icon } from 'components/ui/icon';
-import { hexRequired } from 'app/utils/form-validations';
-import { useTamagotchiMessage } from 'app/hooks/use-tamagotchi';
-import { useApp } from '../../../app/context';
+import { Button, Input } from "@gear-js/ui";
+import { useForm } from "@mantine/form";
+import { hexRequired } from "@/app/utils/form-validations";
+import { useApp } from "@/app/context";
+import { useTamagotchiMessage } from "@/app/hooks/use-tamagotchi";
+import { Icon } from "@/components/ui/icon";
 
 const initialValues = {
-  address: '',
+  address: "",
 };
 
 const validate = {
@@ -27,7 +27,10 @@ export const ApproveAccountForm = ({ close }: { close: () => void }) => {
   return (
     <form className="space-y-6" onSubmit={handleSubmit}>
       <div className="">
-        <Input placeholder="Enter the account address" {...getInputProps('address')} />
+        <Input
+          placeholder="Enter the account address"
+          {...getInputProps("address")}
+        />
       </div>
       <div className="whitespace-nowrap">
         <Button

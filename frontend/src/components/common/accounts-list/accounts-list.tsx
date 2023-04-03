@@ -1,12 +1,12 @@
-import type { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
-import { decodeAddress } from '@gear-js/api';
-import { Button } from '@gear-js/ui';
-import { useAccount, useAlert } from '@gear-js/react-hooks';
-import { AccountButton } from 'components/common/account-button';
-import { Icon } from 'components/ui/icon';
-import { LOCAL_STORAGE } from 'app/consts';
-import { copyToClipboard, isLoggedIn } from 'app/utils';
-import { useLessons, useTamagotchi } from 'app/context';
+import type { InjectedAccountWithMeta } from "@polkadot/extension-inject/types";
+import { decodeAddress } from "@gear-js/api";
+import { Button } from "@gear-js/ui";
+import { useAccount, useAlert } from "@gear-js/react-hooks";
+import { useLessons, useTamagotchi } from "@/app/context";
+import { LOCAL_STORAGE } from "@/app/consts";
+import { copyToClipboard, isLoggedIn } from "@/app/utils";
+import { AccountButton } from "@/components/common/account-button";
+import { Icon } from "@/components/ui/icon";
 
 type Props = {
   list: InjectedAccountWithMeta[];
@@ -53,8 +53,8 @@ export const AccountsList = ({ list, onChange }: Props) => {
     </ul>
   ) : (
     <p>
-      No accounts found. Please open Polkadot extension, create a new account or import existing one and reload the
-      page.
+      No accounts found. Please open Polkadot extension, create a new account or
+      import existing one and reload the page.
     </p>
   );
 };
