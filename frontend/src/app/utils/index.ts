@@ -6,11 +6,29 @@ import { ItemsStoreResponse, StoreItemsNames, StoreItemType } from '../types/ft-
 import { HexString } from '@polkadot/util/types';
 
 export const copyToClipboard = async (key: string, alert: AlertContainerFactory, successfulText?: string) => {
-  try {
-    await navigator.clipboard.writeText(key);
-    alert.success(successfulText || 'Copied');
-  } catch (err) {
-    alert.error('Copy error');
+  function unsecuredCopyToClipboard(text: string) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      alert.success(successfulText || 'Copied');
+    } catch (err) {
+      console.error('Unable to copy to clipboard', err);
+      alert.error('Copy error');
+    }
+    document.body.removeChild(textArea);
+  }
+
+  if (window.isSecureContext && navigator.clipboard) {
+    navigator.clipboard
+      .writeText(key)
+      .then(() => alert.success(successfulText || 'Copied'))
+      .catch(() => alert.error('Copy error'));
+  } else {
+    unsecuredCopyToClipboard(key);
   }
 };
 export const isLoggedIn = ({ address }: InjectedAccountWithMeta) => localStorage[LOCAL_STORAGE.ACCOUNT] === address;
