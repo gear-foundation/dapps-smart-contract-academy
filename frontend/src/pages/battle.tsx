@@ -13,7 +13,7 @@ import { Icon } from "@/components/ui/icon";
 import { TamagotchiBattleInfoCard } from "@/components/tamagotchi/tamagotchi-battle-info-card";
 import { StartBattleForm } from "@/components/forms/start-battle-form";
 
-export const Battle = () => {
+export default function Battle() {
   const { account } = useAccount();
   const { isPending, setIsPending } = useApp();
   const { store } = useFTStore();
@@ -251,4 +251,4 @@ export const Battle = () => {
         ))}
     </>
   );
-};
+}

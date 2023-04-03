@@ -5,7 +5,7 @@ import { useFTStore, useLessons } from "@/app/context";
 import { StoreItemCard } from "@/components/cards/store-item-card";
 import { Icon } from "@/components/ui/icon";
 
-export const Store = () => {
+export default function Store() {
   const { lesson } = useLessons();
   const { items } = useFTStore();
 
@@ -40,4 +40,4 @@ export const Store = () => {
       </div>
     </>
   );
-};
+}
