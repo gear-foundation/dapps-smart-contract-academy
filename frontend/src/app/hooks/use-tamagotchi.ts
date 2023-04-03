@@ -12,17 +12,21 @@ export function useReadTamagotchi<T>() {
 export function useInitTamagotchi() {
   const { account } = useAccount();
   const { setTamagotchi } = useTamagotchi();
-  const { setIsAdmin } = useLessons();
-  const { state, isStateRead } = useReadTamagotchi<TamagotchiState>();
+  const { setIsAdmin, resetLesson } = useLessons();
+  const { state, isStateRead, error } = useReadTamagotchi<TamagotchiState>();
 
   useEffect(() => {
+    if (error) {
+      setTamagotchi(undefined);
+      resetLesson();
+    }
     if (state && isStateRead && account) {
       const { fed, rested, entertained, owner, allowedAccount } = state;
       setTamagotchi({ ...state, isDead: [fed, rested, entertained].reduce((sum, a) => sum + a) === 0 });
       const { decodedAddress } = account;
       setIsAdmin([owner, allowedAccount].includes(decodedAddress));
     }
-  }, [state, isStateRead, account]);
+  }, [state, isStateRead, account, error]);
 }
 
 export function useTamagotchiMessage() {

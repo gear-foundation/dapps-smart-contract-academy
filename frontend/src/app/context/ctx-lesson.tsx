@@ -9,32 +9,41 @@ type Program = {
   lessonMeta?: ProgramMetadata;
   isAdmin: boolean;
   setIsAdmin: Dispatch<SetStateAction<boolean>>;
+  resetLesson: () => void;
 };
 
 export const LessonsCtx = createContext({} as Program);
 
-const useProgram = (): Program => {
+const key = 'tmgState';
+
+const useLesson = (): Program => {
   const [lesson, setLesson] = useState<LessonState>();
   const [lessonMeta, setLessonMeta] = useState<ProgramMetadata>();
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const isParsed = useRef(false);
+  const resetLesson = () => {
+    setLesson(undefined);
+    setIsAdmin(false);
+    localStorage.removeItem(key);
+  };
 
   useEffect(() => {
     if (lesson) {
-      localStorage.setItem('tmgState', JSON.stringify(lesson));
+      localStorage.setItem(key, JSON.stringify(lesson));
 
       fetch(getLessonAssets(+lesson.step))
-        .then((res) => res.text() as Promise<string>)
+        .then((res) => res.text())
         .then((raw) => getProgramMetadata(`0x${raw}`))
-        .then((meta) => setLessonMeta(meta));
+        .then((meta) => setLessonMeta(meta))
+        .catch((e) => console.log('error', e));
     } else {
       if (!isParsed.current) {
-        const ls = localStorage.getItem('tmgState');
+        const ls = localStorage.getItem(key);
         if (ls) {
           setLesson(JSON.parse(ls));
           isParsed.current = true;
         }
-      } else localStorage.removeItem('tmgState');
+      } else localStorage.removeItem(key);
     }
   }, [lesson]);
 
@@ -44,10 +53,11 @@ const useProgram = (): Program => {
     lessonMeta,
     isAdmin,
     setIsAdmin,
+    resetLesson,
   };
 };
 
 export function LessonsProvider({ children }: { children: ReactNode }) {
   const { Provider } = LessonsCtx;
-  return <Provider value={useProgram()}>{children}</Provider>;
+  return <Provider value={useLesson()}>{children}</Provider>;
 }

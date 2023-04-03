@@ -12,15 +12,14 @@ export const AccountActionsMenu = () => {
   const { account } = useAccount();
   const { isPending } = useApp();
   const { setTamagotchi, tamagotchi } = useTamagotchi();
-  const { lesson, setLesson, setIsAdmin } = useLessons();
+  const { lesson, resetLesson } = useLessons();
   const initialOptions = [
     {
       id: 4,
       label: 'Upload Contract',
       action: () => {
         setTamagotchi(undefined);
-        setLesson(undefined);
-        setIsAdmin(false);
+        resetLesson();
       },
       icon: 'upload',
     },

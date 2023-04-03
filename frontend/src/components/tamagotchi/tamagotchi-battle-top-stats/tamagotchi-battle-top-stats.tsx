@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import { TamagotchiAvatar } from '../tamagotchi-avatar';
 import { BattleStatesList } from 'app/types/battles';
 import { Icon } from '../../ui/icon';
 

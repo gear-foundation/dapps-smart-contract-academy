@@ -17,7 +17,7 @@ export const AccountsList = ({ list, onChange }: Props) => {
   const { logout, login } = useAccount();
   const alert = useAlert();
   const { setTamagotchi } = useTamagotchi();
-  const { setLesson, setIsAdmin } = useLessons();
+  const { resetLesson } = useLessons();
 
   const handleAccountButtonClick = async (account: InjectedAccountWithMeta) => {
     await logout();
@@ -25,8 +25,7 @@ export const AccountsList = ({ list, onChange }: Props) => {
     localStorage.setItem(LOCAL_STORAGE.ACCOUNT, account.address);
     onChange();
     setTamagotchi(undefined);
-    setLesson(undefined);
-    setIsAdmin(false);
+    resetLesson();
   };
 
   const handleCopy = (address: string) => {
