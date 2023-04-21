@@ -84,7 +84,8 @@ export function useThrottleWasmState(
     if (!programId || !wasm || !functionName || (lesson && lesson.step < 2))
       return;
 
-    const interval = setInterval(() => readState(), 25000);
+    readState();
+    const interval = setInterval(() => readState(), 5000);
 
     const unsub = api?.gearEvents.subscribeToGearEvent(
       "MessagesDispatched",

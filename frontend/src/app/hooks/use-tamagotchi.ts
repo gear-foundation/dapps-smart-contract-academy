@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   useAccount,
   useReadFullState,
@@ -13,18 +13,25 @@ export function useReadTamagotchi<T>() {
   return useReadFullState<T>(lesson?.programId, lessonMeta);
 }
 
-export function useInitTamagotchi() {
+export function useTamagotchiInit() {
   const { account } = useAccount();
-  const { setTamagotchi } = useTamagotchi();
+  const { setTamagotchi, tamagotchi } = useTamagotchi();
   const { setIsAdmin, resetLesson } = useLessons();
   const { state, isStateRead, error } = useReadTamagotchi<TamagotchiState>();
+  const [isInit, setIsInit] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!tamagotchi && isInit) {
+      setIsInit(false);
+    }
+  }, [tamagotchi, isInit]);
 
   useEffect(() => {
     if (error) {
       setTamagotchi(undefined);
       resetLesson();
     }
-    if (state && isStateRead && account) {
+    if (state && isStateRead && account && !isInit) {
       const { fed, rested, entertained, owner, allowedAccount } = state;
       setTamagotchi({
         ...state,
@@ -32,6 +39,7 @@ export function useInitTamagotchi() {
       });
       const { decodedAddress } = account;
       setIsAdmin([owner, allowedAccount].includes(decodedAddress));
+      setIsInit((prev) => !prev);
     }
   }, [state, isStateRead, account, error]);
 }
