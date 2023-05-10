@@ -1241,15 +1241,15 @@
   resolved "https://registry.yarnpkg.com/@gear-js/api/-/api-0.30.6.tgz#1b41bea871d8294e4cf41b930a37f51168788eb2"
   integrity sha512-gqtXMDpYb6sO8F1v0V9MPEAOdJuPXMJRySWvnIpAArToyWrAkRHn01ZYDDciy9GyJrfGfHdhve/ne0s1qGulsg==
 
-"@gear-js/react-hooks@0.5.15":
-  version "0.5.15"
-  resolved "https://registry.yarnpkg.com/@gear-js/react-hooks/-/react-hooks-0.5.15.tgz#ad7d4dc1b2d54c8e3264caf307ed558b4a1d4e4a"
-  integrity sha512-AiPkOswJF3GW0jF+pOR3VmKkzLB4AJw9C8BG7voh6HUPj6nOxCE4lfm/TsxPfZ0B7QAP+5qWgaQGvFObvr8gtQ==
+"@gear-js/react-hooks@0.5.16":
+  version "0.5.16"
+  resolved "https://registry.yarnpkg.com/@gear-js/react-hooks/-/react-hooks-0.5.16.tgz#8b47604340937a550f4dd4fd7259d18b72d8f3bf"
+  integrity sha512-toG0UFvUuN3quCLdmR6kpVLEjJ1UJ5tFFIG2Nhaw58LqFxdiVtMtlsWS9BD4+96hGaN7bg9JRwKTyeq/9dBDJQ==
 
-"@gear-js/ui@0.5.18":
-  version "0.5.18"
-  resolved "https://registry.yarnpkg.com/@gear-js/ui/-/ui-0.5.18.tgz#1c920ff5258ed7c0adfd7a21e7f8147815a4c362"
-  integrity sha512-4wguzJ8PhTe0G9+MTg2mnUVSiSmUl59uINtlOUrR3prrJexxffHkEaVjfKijCQ0tZX7Bb/2sb+cBgeFNDzCRaQ==
+"@gear-js/ui@0.5.19":
+  version "0.5.19"
+  resolved "https://registry.yarnpkg.com/@gear-js/ui/-/ui-0.5.19.tgz#5902f8fc334fd05cde39626b66f8b3bd3b803e88"
+  integrity sha512-+ftv5n0jHgLopZRHWsP7f6wkT9/4xwYohfKo6s3t2Ngc1v+aS7LkOoBJ3yHbG+3XsrGj0GU3Pf6iaAMDJWfz9w==
 
 "@headlessui-float/react@0.11.0":
   version "0.11.0"
@@ -1747,7 +1747,7 @@
     "@polkadot/wasm-util" "7.0.3"
     tslib "^2.5.0"
 
-"@polkadot/wasm-crypto@7.0.3", "@polkadot/wasm-crypto@^7.0.3":
+"@polkadot/wasm-crypto@^7.0.3":
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/@polkadot/wasm-crypto/-/wasm-crypto-7.0.3.tgz#e07ddbeea0b45149d8e58be292ad423d646f1cb1"
   integrity sha512-mOCLCaL9cyrU72PCc9nMNAj3zdvOzau5mOGJjLahIz+mqlHAoAmEXCAJvJ2qCo7OFl8QiDToAEGhdDWQfiHUyg==
