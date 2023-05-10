@@ -1,8 +1,7 @@
 #![no_std]
 
 use auction_io::*;
-use ft_logic_io::Action;
-use ft_main_io::{FTokenAction, FTokenEvent};
+use ft_main_io::{FTokenAction, FTokenEvent, LogicAction};
 use gstd::{errors::ContractError, exec, msg, prelude::*, ActorId, ReservationId};
 use tmg_io::*;
 const MIN_DURATION: u64 = 300_000;
@@ -355,12 +354,11 @@ async fn transfer_tokens(
         *token_address,
         FTokenAction::Message {
             transaction_id,
-            payload: Action::Transfer {
+            payload: LogicAction::Transfer {
                 sender: *from,
                 recipient: *to,
                 amount: amount_tokens,
-            }
-            .encode(),
+            },
         },
         0,
     );
@@ -392,13 +390,9 @@ async fn change_owner(
     tamagotchi_id: &TamagotchiId,
     new_owner: &ActorId,
 ) -> Result<TmgEvent, ContractError> {
-    msg::send_for_reply_as::<_, TmgEvent>(
-        *tamagotchi_id,
-        TmgAction::Transfer(*new_owner),
-        0,
-    )
-    .expect("Error in sending a message `TmgAction::ChangeOwner` to Tamagotchi contract")
-    .await
+    msg::send_for_reply_as::<_, TmgEvent>(*tamagotchi_id, TmgAction::Transfer(*new_owner), 0)
+        .expect("Error in sending a message `TmgAction::ChangeOwner` to Tamagotchi contract")
+        .await
 }
 
 #[no_mangle]

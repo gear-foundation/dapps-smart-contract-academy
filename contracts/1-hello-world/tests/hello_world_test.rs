@@ -19,4 +19,3 @@ fn hello_test() {
         .payload(String::from("Hello"));
     assert!(res.contains(&expected_log))
 }
-

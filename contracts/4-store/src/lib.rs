@@ -1,7 +1,6 @@
 #![no_std]
 
-use ft_logic_io::Action;
-use ft_main_io::{FTokenAction, FTokenEvent};
+use ft_main_io::{FTokenAction, FTokenEvent, LogicAction};
 use gstd::{exec, msg, prelude::*, ActorId};
 use store_io::{
     AttrMetadata, AttributeId, Price, StoreAction, StoreEvent, TamagotchiId, TransactionId,
@@ -104,13 +103,8 @@ impl AttributeStore {
 
     fn get_attributes(&self, tmg_id: &TamagotchiId) {
         let attributes = self.owners.get(tmg_id).unwrap_or(&BTreeSet::new()).clone();
-        msg::reply(
-            StoreEvent::Attributes {
-                attributes
-            },
-            0,
-        )
-        .expect("Error in sending a reply `StoreEvent::Attributes`");
+        msg::reply(StoreEvent::Attributes { attributes }, 0)
+            .expect("Error in sending a reply `StoreEvent::Attributes`");
     }
 
     fn set_ft_contract_id(&mut self, ft_contract_id: &ActorId) {
@@ -149,7 +143,8 @@ impl AttributeStore {
 #[gstd::async_main]
 async fn main() {
     let action: StoreAction = msg::load().expect("Unable to decode `StoreAction");
-    let store: &mut AttributeStore = unsafe { STORE.as_mut().expect("The contract is not initialized") };
+    let store: &mut AttributeStore =
+        unsafe { STORE.as_mut().expect("The contract is not initialized") };
     match action {
         StoreAction::CreateAttribute {
             attribute_id,
@@ -187,12 +182,11 @@ async fn transfer_tokens(
         *token_address,
         FTokenAction::Message {
             transaction_id,
-            payload: Action::Transfer {
+            payload: LogicAction::Transfer {
                 sender: *from,
                 recipient: *to,
                 amount: amount_tokens,
-            }
-            .encode(),
+            },
         },
         0,
     )

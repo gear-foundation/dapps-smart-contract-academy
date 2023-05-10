@@ -4,8 +4,8 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-gmeta = {  git = "https://github.com/gear-tech/gear.git", branch = "testnet"}
-gstd = { git = "https://github.com/gear-tech/gear.git" , branch = "testnet"}
+gmeta = {  git = "https://github.com/gear-tech/gear.git", rev = "5c685d0f15c412ab6ee019ceaf7ce084426dfb68" }
+gstd = { git = "https://github.com/gear-tech/gear.git" , rev = "5c685d0f15c412ab6ee019ceaf7ce084426dfb68" }
 parity-scale-codec = { version = "3", default-features = false }
 scale-info = { version = "2", default-features = false }
 store-io = { path = "../4-store/io/" }

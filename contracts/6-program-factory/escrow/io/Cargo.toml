@@ -4,6 +4,6 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-gstd = { git = "https://github.com/gear-tech/gear.git", branch = "testnet", features = ["debug"] }
+gstd = { git = "https://github.com/gear-tech/gear.git", rev = "5c685d0" , features = ["debug"] }
 parity-scale-codec = {  version = "3", default-features = false }
 scale-info = { version = "2", default-features = false }
