@@ -1,5 +1,11 @@
-import { createContext, Dispatch, ReactNode, SetStateAction, useEffect, useState } from 'react';
-import { ItemsStoreResponse, StoreItemType } from 'app/types/ft-store';
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useState,
+} from "react";
+import type { ItemsStoreResponse, StoreItemType } from "@/app/types/ft-store";
 
 type Program = {
   store?: ItemsStoreResponse;

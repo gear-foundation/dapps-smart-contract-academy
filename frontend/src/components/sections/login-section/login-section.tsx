@@ -1,7 +1,7 @@
-import { Button } from '@gear-js/ui';
-import { SelectAccountPopup } from '../../popups/select-account-popup';
-import { useState } from 'react';
-import { useAccount } from '@gear-js/react-hooks';
+import { Button } from "@gear-js/ui";
+import { useState } from "react";
+import { useAccount } from "@gear-js/react-hooks";
+import { SelectAccountPopup } from "@/components/popups/select-account-popup";
 
 export const LoginSection = () => {
   const { accounts } = useAccount();

@@ -1,10 +1,10 @@
-import { Icon } from '../../ui/icon';
-import { Button } from '@gear-js/ui';
-import clsx from 'clsx';
-import { Popover } from '@headlessui/react';
-import { Float } from '@headlessui-float/react';
-import { useEffect, useState } from 'react';
-import { useApp, useLessons } from 'app/context';
+import { Button } from "@gear-js/ui";
+import clsx from "clsx";
+import { Popover } from "@headlessui/react";
+import { Float } from "@headlessui-float/react";
+import { useEffect, useState } from "react";
+import { useApp, useLessons } from "@/app/context";
+import { Icon } from "@/components/ui/icon";
 
 type Props = {
   onClick: () => void;
@@ -52,7 +52,8 @@ export const TamagotchiInfoCardRow = ({
         enterTo="opacity-100 translate-y-0"
         leave="transition duration-150 ease-in"
         leaveFrom="opacity-100 translate-y-0"
-        leaveTo="opacity-0 -translate-y-1">
+        leaveTo="opacity-0 -translate-y-1"
+      >
         <div className="flex gap-12 items-center">
           <div className="basis-30 grow">
             <div className="flex items-center justify-between gap-3 text-base leading-5">
@@ -64,8 +65,12 @@ export const TamagotchiInfoCardRow = ({
             <div className="relative mt-3 bg-white/15 h-2.5 rounded-full overflow-hidden">
               <div
                 className={clsx(
-                  'absolute inset-0 rounded-full',
-                  current > 60 ? 'bg-primary' : current > 40 ? 'bg-amber-500' : 'bg-error',
+                  "absolute inset-0 rounded-full",
+                  current > 60
+                    ? "bg-primary"
+                    : current > 40
+                    ? "bg-amber-500"
+                    : "bg-error"
                 )}
                 style={{ width: `${current}%` }}
               />
@@ -73,14 +78,19 @@ export const TamagotchiInfoCardRow = ({
           </div>
           <div className="basis-50">
             <Button
-              color={isActive ? 'primary' : 'light'}
+              color={isActive ? "primary" : "light"}
               className={clsx(
-                'gap-2 w-full',
+                "gap-2 w-full",
                 isActive &&
-                  'relative before:absolute before:-inset-1 before:border before:border-primary/40 before:rounded-[90px] before:animate-wave-2 after:absolute after:-inset-2 after:border after:border-primary/20 after:rounded-[90px] after:animate-wave',
+                  "relative before:absolute before:-inset-1 before:border before:border-primary/40 before:rounded-[90px] before:animate-wave-2 after:absolute after:-inset-2 after:border after:border-primary/20 after:rounded-[90px] after:animate-wave"
               )}
               text={labelBtn}
-              icon={() => <Icon name={`act-${labelBtn.toLowerCase()}`} className="w-5 h-5" />}
+              icon={() => (
+                <Icon
+                  name={`act-${labelBtn.toLowerCase()}`}
+                  className="w-5 h-5"
+                />
+              )}
               onClick={onClick}
               disabled={isPending || !isAdmin}
             />
@@ -88,7 +98,10 @@ export const TamagotchiInfoCardRow = ({
         </div>
 
         <Popover.Panel className="bg-dark-500 border border-[#2A7D4E] rounded-[20px] shadow-lg focus:outline-none">
-          <Float.Arrow offset={8} className="absolute rotate-45 border-8 border-[#2A7D4E]" />
+          <Float.Arrow
+            offset={8}
+            className="absolute rotate-45 border-8 border-[#2A7D4E]"
+          />
 
           <div className="relative h-full py-6 pl-8 pr-16 bg-dark-500 rounded-[20px]">
             <h3 className="font-kanit font-semibold text-xl">{tooltipTitle}</h3>
@@ -97,7 +110,8 @@ export const TamagotchiInfoCardRow = ({
             </div>
             <button
               className="absolute top-4 right-4 text-white/80 hover:text-white transition-colors"
-              onClick={toggle}>
+              onClick={toggle}
+            >
               <Icon name="close" className="w-4 h-4" />
             </button>
           </div>

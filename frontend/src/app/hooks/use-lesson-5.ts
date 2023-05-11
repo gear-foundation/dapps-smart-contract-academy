@@ -1,15 +1,19 @@
-import { useEffect, useState } from 'react';
-import type { UserMessageSent } from '@gear-js/api';
-import { useApi } from '@gear-js/react-hooks';
-import type { UnsubscribePromise } from '@polkadot/api/types';
-import { useLessons, useTamagotchi } from '../context';
-import type { NotificationResponseTypes, NotificationType } from 'app/types/lessons';
-import { getNotificationTypeValue } from 'app/utils';
+import { useEffect, useState } from "react";
+import type { UserMessageSent } from "@gear-js/api";
+import { useApi } from "@gear-js/react-hooks";
+import type { UnsubscribePromise } from "@polkadot/api/types";
+import { useLessons, useTamagotchi } from "../context";
+import type {
+  NotificationResponseTypes,
+  NotificationType,
+} from "@/app/types/lessons";
+import { getNotificationTypeValue } from "@/app/utils";
 
 export const useLesson5 = () => {
   const { api } = useApi();
   const [notification, setNotification] = useState<NotificationType>({});
-  const [activeNotification, setActiveNotification] = useState<NotificationResponseTypes>();
+  const [activeNotification, setActiveNotification] =
+    useState<NotificationResponseTypes>();
   const { lesson, lessonMeta } = useLessons();
   const { tamagotchi } = useTamagotchi();
 
@@ -35,20 +39,31 @@ export const useLesson5 = () => {
 
     if (lessonMeta && lesson?.step === 5 && tamagotchi) {
       if (!tamagotchi.isDead) {
-        unsub = api.gearEvents.subscribeToGearEvent('UserMessageSent', ({ data }: UserMessageSent) => {
-          const {
-            message: { payload },
-          } = data;
+        unsub = api.gearEvents.subscribeToGearEvent(
+          "UserMessageSent",
+          ({ data }: UserMessageSent) => {
+            const {
+              message: { payload },
+            } = data;
 
-          const decodedPayload = lessonMeta.createType(8, payload).toHuman() as NotificationResponseTypes;
+            const decodedPayload = lessonMeta
+              .createType(8, payload)
+              .toHuman() as NotificationResponseTypes;
 
-          // console.log({ decodedPayload });
+            // console.log({ decodedPayload });
 
-          if (tamagotchi && ['WantToSleep', 'PlayWithMe', 'FeedMe'].includes(decodedPayload)) {
-            const update = getNotificationTypeValue(decodedPayload, tamagotchi);
-            setNotification((prev) => ({ ...prev, ...update }));
+            if (
+              tamagotchi &&
+              ["WantToSleep", "PlayWithMe", "FeedMe"].includes(decodedPayload)
+            ) {
+              const update = getNotificationTypeValue(
+                decodedPayload,
+                tamagotchi
+              );
+              setNotification((prev) => ({ ...prev, ...update }));
+            }
           }
-        });
+        );
       }
     }
 

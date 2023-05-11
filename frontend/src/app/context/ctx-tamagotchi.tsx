@@ -1,6 +1,12 @@
-import { createContext, Dispatch, ReactNode, SetStateAction, useState } from 'react';
-import type { TamagotchiState } from 'app/types/lessons';
-import type { StoreItemsNames } from 'app/types/ft-store';
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useState,
+} from "react";
+import type { TamagotchiState } from "@/app/types/lessons";
+import type { StoreItemsNames } from "@/app/types/ft-store";
 
 type Program = {
   tamagotchi?: TamagotchiState;
