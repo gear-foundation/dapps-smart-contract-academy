@@ -1,3 +1,8 @@
+use escrow_io::ProgramMetadata;
+use gear_wasm_builder::WasmBuilder;
+
 fn main() {
-    gear_wasm_builder::build_with_metadata::<escrow_io::ProgramMetadata>();
+    WasmBuilder::with_meta(<ProgramMetadata as gmeta::Metadata>::repr())
+        .exclude_features(vec!["binary-vendor"])
+        .build();
 }

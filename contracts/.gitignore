@@ -1,3 +1,5 @@
 .binpath
 target
 .metahash
+.DS_Store
+.binpath

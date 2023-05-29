@@ -1,5 +1,7 @@
-use escrow::{EscrowAction, EscrowEvent, InitEscrow};
+use escrow_new_io::{EscrowAction, EscrowEvent, InitEscrow};
+use gstd::prelude::*;
 use gtest::{Log, Program, System};
+
 const BUYER: u64 = 100;
 const SELLER: u64 = 101;
 const PRICE: u128 = 100_000;
@@ -29,7 +31,7 @@ fn deposit() {
 
     sys.mint_to(BUYER, PRICE);
 
-    let res = escrow.send_with_value(BUYER, EscrowAction::Deposit, PRICE);
+    let res = escrow.send_with_value(BUYER, EscrowAction::Deposit(BUYER.into()), PRICE);
     let log = Log::builder()
         .dest(BUYER)
         .payload(EscrowEvent::FundsDeposited);
@@ -48,18 +50,18 @@ fn deposit_failures() {
 
     sys.mint_to(BUYER, 2 * PRICE);
     // must fail since BUYER attaches not enough value
-    let res = escrow.send_with_value(BUYER, EscrowAction::Deposit, 2 * PRICE - 500);
+    let res = escrow.send_with_value(BUYER, EscrowAction::Deposit(BUYER.into()), 2 * PRICE - 500);
     assert!(res.main_failed());
 
     // must fail since the message sender is not BUYER
-    let res = escrow.send(SELLER, EscrowAction::Deposit);
+    let res = escrow.send(SELLER, EscrowAction::Deposit(BUYER.into()));
     assert!(res.main_failed());
 
     // successful deposit
-    let res = escrow.send_with_value(BUYER, EscrowAction::Deposit, PRICE);
+    let res = escrow.send_with_value(BUYER, EscrowAction::Deposit(BUYER.into()), PRICE);
     assert!(!res.main_failed());
 
     // must fail since the state must be `AwaitingPayment`
-    let res = escrow.send_with_value(BUYER, EscrowAction::Deposit, PRICE);
+    let res = escrow.send_with_value(BUYER, EscrowAction::Deposit(BUYER.into()), PRICE);
     assert!(res.main_failed());
 }

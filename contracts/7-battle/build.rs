@@ -1,3 +1,8 @@
+use battle_io::BattleMetadata;
+use gear_wasm_builder::WasmBuilder;
+
 fn main() {
-    gear_wasm_builder::build_with_metadata::<battle_io::BattleMetadata>();
+    WasmBuilder::with_meta(<BattleMetadata as gmeta::Metadata>::repr())
+        .exclude_features(vec!["binary-vendor"])
+        .build();
 }

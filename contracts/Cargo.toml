@@ -2,9 +2,45 @@
 resolver = "2"
 members = [
     "1-hello-world",
+    "1-hello-world/hello-world-io",
     "2-escrow",
+    "2-escrow/io",
+    "2-escrow/state",
     "4-store",
+    "4-store/io",
     "5-auction",
+    "5-auction/io",
     "6-program-factory",
+    "6-program-factory/escrow",
+    "6-program-factory/escrow/io",
     "7-battle",
+    "7-battle/io",
+    "tmg-io"
 ]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+authors = ["Gear Technologies"]
+license = "MIT"
+
+[workspace.dependencies]
+ft-main-io = { git = "https://github.com/gear-dapps/sharded-fungible-token", tag = "2.1.2" }
+gstd = { git = "https://github.com/gear-tech/gear", rev = "78dfa07" }
+hello-world-io = { path = "1-hello-world/hello-world-io" }
+escrow-io = { path = "2-escrow/io" }
+store-io = { path = "4-store/io" }
+auction-io = { path = "5-auction/io" }
+escrow-new-io = { path = "6-program-factory/escrow/io" }
+battle-io = { path = "7-battle/io" }
+tmg-io = { path = "tmg-io" }
+hashbrown = "0.13"
+gmeta = { git = "https://github.com/gear-tech/gear", rev = "78dfa07" }
+gtest = { git = "https://github.com/gear-tech/gear", rev = "78dfa07" }
+gclient = { git = "https://github.com/gear-tech/gear", rev = "78dfa07" }
+subxt = { version = "0.27", default-features = false }
+tokio = "1"
+blake2-rfc = { version = "0.2.18", default-features = false }
+gear-wasm-builder = { git = "https://github.com/gear-tech/gear.git", rev = "78dfa07" }
+scale-info = { version = "2", default-features = false }
+parity-scale-codec = { version = "3", default-features = false }

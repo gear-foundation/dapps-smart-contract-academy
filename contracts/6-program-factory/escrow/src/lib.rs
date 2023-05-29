@@ -1,5 +1,6 @@
 #![no_std]
-use escrow_io::*;
+
+use escrow_new_io::*;
 use gstd::{msg, prelude::*, ActorId};
 
 #[derive(Debug, PartialEq, Eq)]
@@ -73,10 +74,9 @@ impl Escrow {
             "The indicated account must be a buyer"
         );
         self.state = EscrowState::Closed;
-        msg::send_with_gas(self.seller, EscrowEvent::PaymentToSeller, 0,self.price)
+        msg::send_with_gas(self.seller, EscrowEvent::PaymentToSeller, 0, self.price)
             .expect("Error in sending funds to the seller");
-        msg::reply(EscrowEvent::DeliveryConfirmed, 0)
-            .expect("Error during a reply `FactoryEvent`");
+        msg::reply(EscrowEvent::DeliveryConfirmed, 0).expect("Error during a reply `FactoryEvent`");
     }
 }
 #[no_mangle]
