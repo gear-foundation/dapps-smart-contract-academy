@@ -42,9 +42,6 @@ jobs:
 
     - name: Setup GitHub Pages
       uses: actions/configure-pages@v3
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        enablement: true
 
     - name: Upload Pages artifact
       uses: actions/upload-pages-artifact@v1
