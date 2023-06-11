@@ -1,0 +1,51 @@
+name: Frontend
+
+on:
+  pull_request:
+    branches: [master]
+    paths:
+      - frontend/**
+
+  push:
+    branches: [master]
+    paths:
+      - frontend/**
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Install yarn
+      run: sudo npm i yarn -g
+
+    - name: Build
+      run: |
+        yarn --cwd frontend
+        yarn --cwd frontend build
+
+    - name: Setup GitHub Pages
+      uses: actions/configure-pages@v3
+      with:
+        enablement: true
+
+    - name: Upload Pages artifact
+      uses: actions/upload-pages-artifact@v1
+      with:
+          path: frontend/dist
+
+    - name: Deploy
+      id: deployment
+      uses: actions/deploy-pages@v2
