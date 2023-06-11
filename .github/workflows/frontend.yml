@@ -11,6 +11,10 @@ on:
     #paths:
     #  - frontend/**
 
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 permissions:
   contents: read
   pages: write
@@ -38,8 +42,8 @@ jobs:
 
     - name: Setup GitHub Pages
       uses: actions/configure-pages@v3
-      with:
-        enablement: true
+      #with:
+      #  enablement: true
 
     - name: Upload Pages artifact
       uses: actions/upload-pages-artifact@v1
