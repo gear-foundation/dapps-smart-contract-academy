@@ -3,13 +3,13 @@ name: Frontend
 on:
   pull_request:
     branches: [master]
-    paths:
-      - frontend/**
+    #paths:
+    #  - frontend/**
 
   push:
     branches: [master]
-    paths:
-      - frontend/**
+    #paths:
+    #  - frontend/**
 
 permissions:
   contents: read
