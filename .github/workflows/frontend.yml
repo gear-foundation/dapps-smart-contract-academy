@@ -3,13 +3,11 @@ name: Frontend
 on:
   pull_request:
     branches: [master]
-    #paths:
-    #  - frontend/**
+    paths: [frontend/**]
 
   push:
     branches: [master]
-    #paths:
-    #  - frontend/**
+    paths: [frontend/**]
 
 concurrency:
   group: "pages"
@@ -21,7 +19,7 @@ permissions:
   id-token: write
 
 jobs:
-  build-frontend:
+  frontend:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -41,13 +39,16 @@ jobs:
         yarn --cwd frontend build
 
     - name: Setup GitHub Pages
+      if: github.event_name == 'push'
       uses: actions/configure-pages@v3
 
     - name: Upload Pages artifact
+      if: github.event_name == 'push'
       uses: actions/upload-pages-artifact@v1
       with:
           path: frontend/dist
 
     - name: Deploy
+      if: github.event_name == 'push'
       id: deployment
       uses: actions/deploy-pages@v2
