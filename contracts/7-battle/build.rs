@@ -1,3 +1,5 @@
+use battle_io::BattleMetadata;
+
 fn main() {
-    gear_wasm_builder::build_with_metadata::<battle_io::BattleMetadata>();
+    gear_wasm_builder::build_with_metadata::<BattleMetadata>();
 }

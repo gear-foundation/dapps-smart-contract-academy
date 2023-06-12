@@ -1,3 +1,5 @@
+use escrow_io::ProgramMetadata;
+
 fn main() {
-    gear_wasm_builder::build_with_metadata::<escrow_io::ProgramMetadata>();
+    gear_wasm_builder::build_with_metadata::<ProgramMetadata>();
 }

@@ -1,16 +1,19 @@
 [package]
 name = "battle"
-version = "0.1.0"
-edition = "2021"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
 
 [dependencies]
-gstd = { git = "https://github.com/gear-tech/gear.git",features = ["debug"], rev = "5c685d0f15c412ab6ee019ceaf7ce084426dfb68"  }
-parity-scale-codec = { version = "3", default-features = false }
-battle-io = { path = "io" }
-tmg-io = { path = "../tmg-io" }
-store-io = {path = "../4-store/io" }
-scale-info = { version = "2", default-features = false }
+gstd = { workspace = true, features = ["debug"] }
+parity-scale-codec.workspace = true
+battle-io.workspace = true
+tmg-io.workspace = true
+store-io.workspace = true
+scale-info.workspace = true
 
 [build-dependencies]
-gear-wasm-builder = { git = "https://github.com/gear-tech/gear.git", rev = "5c685d0f15c412ab6ee019ceaf7ce084426dfb68" }
-battle-io = { path = "io" }
+gmeta.workspace = true
+gear-wasm-builder.workspace = true
+battle-io.workspace = true

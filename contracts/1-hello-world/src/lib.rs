@@ -5,9 +5,9 @@ use hello_world_io::InputMessages;
 static mut GREETING: Option<String> = None;
 
 #[no_mangle]
-unsafe extern "C" fn handle() {
+extern "C" fn handle() {
     let input_message: InputMessages = msg::load().expect("Error in loading InputMessages");
-    let greeting = GREETING.get_or_insert(Default::default());
+    let greeting = unsafe { GREETING.as_ref().expect("Program hasn't been initialized") };
     match input_message {
         InputMessages::SendHelloTo(account) => {
             debug!("Message: SendHelloTo {:?}", account);
@@ -21,12 +21,12 @@ unsafe extern "C" fn handle() {
 }
 
 #[no_mangle]
-unsafe extern "C" fn init() {
+extern "C" fn init() {
     //let greeting: String = msg::load().expect("Can't decode init message");
     let greeting = String::from_utf8(msg::load_bytes().expect("Can't load an init message"))
         .expect("Can't decode to String");
     debug!("Program was initialized with message {:?}", greeting);
-    GREETING = Some(greeting);
+    unsafe { GREETING = Some(greeting) };
 }
 
 #[no_mangle]
