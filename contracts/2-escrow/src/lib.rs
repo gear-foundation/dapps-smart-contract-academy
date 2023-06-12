@@ -50,11 +50,16 @@ extern "C" fn handle() {
 
 #[no_mangle]
 extern "C" fn init() {
-    let init_config: InitEscrow = msg::load().expect("Error in decoding `InitEscrow`");
+    let InitEscrow {
+        seller,
+        buyer,
+        price,
+    } = msg::load().expect("Error in decoding `InitEscrow`");
+
     let escrow = Escrow {
-        seller: init_config.seller,
-        buyer: init_config.buyer,
-        price: init_config.price,
+        seller,
+        buyer,
+        price,
         state: EscrowState::AwaitingPayment,
     };
     unsafe { ESCROW = Some(escrow) };
