@@ -1,4 +1,3 @@
-use gstd::ActorId;
 use gtest::{Log, Program, System};
 use hello_world_io::InputMessages;
 

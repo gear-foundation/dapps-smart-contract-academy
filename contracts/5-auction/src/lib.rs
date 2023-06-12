@@ -132,7 +132,7 @@ impl Auction {
         if let Some(tx) = self.transaction.clone() {
             match tx {
                 Transaction::MakeBid { .. } => {
-                    self.complete_tx(tx).await;
+                    _ = self.complete_tx(tx).await;
                 }
                 Transaction::SettleAuction { .. } => {
                     return self.complete_tx(tx).await;

@@ -5,6 +5,7 @@ use gtest::{Log, Program, System};
 const BUYER: u64 = 100;
 const SELLER: u64 = 101;
 const PRICE: u128 = 100_000;
+const ESCROW_ID: u64 = 1;
 
 fn init_escrow(sys: &System) {
     sys.init_logger();
@@ -17,10 +18,11 @@ fn init_escrow(sys: &System) {
             price: PRICE,
         },
     );
-    assert!(res.log().is_empty());
+    let log = Log::builder()
+        .dest(SELLER)
+        .payload(EscrowEvent::ProgramInitialized);
+    assert!(res.contains(&log));
 }
-
-const ESCROW_ID: u64 = 1;
 
 #[test]
 fn deposit() {

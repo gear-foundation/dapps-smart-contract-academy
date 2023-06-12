@@ -3,6 +3,8 @@
 use escrow_new_io::*;
 use gstd::{msg, prelude::*, ActorId};
 
+static mut ESCROW: Option<Escrow> = None;
+
 #[derive(Debug, PartialEq, Eq)]
 enum EscrowState {
     AwaitingPayment,
@@ -24,8 +26,6 @@ struct Escrow {
     price: u128,
     state: EscrowState,
 }
-
-static mut ESCROW: Option<Escrow> = None;
 
 impl Escrow {
     fn deposit(&mut self, account: &ActorId) {
@@ -56,6 +56,7 @@ impl Escrow {
         msg::reply(EscrowEvent::FundsDeposited, 0)
             .expect("Error in reply `EscrowEvent::FundsDeposited");
     }
+
     fn confirm_delivery(&mut self, account: &ActorId) {
         assert_eq!(
             self.state,
@@ -79,10 +80,11 @@ impl Escrow {
         msg::reply(EscrowEvent::DeliveryConfirmed, 0).expect("Error during a reply `FactoryEvent`");
     }
 }
+
 #[no_mangle]
-unsafe extern "C" fn handle() {
+extern "C" fn handle() {
     let action: EscrowAction = msg::load().expect("Unable to decode `EscrowAction`");
-    let escrow: &mut Escrow = ESCROW.get_or_insert(Default::default());
+    let escrow = unsafe { ESCROW.as_mut().expect("Program hasn't been initialized") };
     match action {
         EscrowAction::Deposit(account) => escrow.deposit(&account),
         EscrowAction::ConfirmDelivery(account) => escrow.confirm_delivery(&account),
@@ -90,16 +92,22 @@ unsafe extern "C" fn handle() {
 }
 
 #[no_mangle]
-unsafe extern "C" fn init() {
-    let init_config: InitEscrow = msg::load().expect("Error in decoding `InitEscrow`");
+extern "C" fn init() {
+    let InitEscrow {
+        seller,
+        buyer,
+        price,
+    } = msg::load().expect("Error in decoding `InitEscrow`");
+
     let escrow = Escrow {
         factory_id: msg::source(),
-        seller: init_config.seller,
-        buyer: init_config.buyer,
-        price: init_config.price,
+        seller,
+        buyer,
+        price,
         state: EscrowState::AwaitingPayment,
     };
-    ESCROW = Some(escrow);
+    unsafe { ESCROW = Some(escrow) };
+
     msg::reply(EscrowEvent::ProgramInitialized, 0)
         .expect("Error during a reply `EscrowEvent::ProgramInitialized`");
 }

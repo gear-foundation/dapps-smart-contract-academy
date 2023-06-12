@@ -37,10 +37,11 @@ impl Escrow {
     }
     fn confirm_delivery(&mut self) {}
 }
+
 #[no_mangle]
-unsafe extern "C" fn handle() {
+extern "C" fn handle() {
     let action: EscrowAction = msg::load().expect("Unable to decode `EscrowAction`");
-    let escrow: &mut Escrow = ESCROW.get_or_insert(Default::default());
+    let escrow = unsafe { ESCROW.as_mut().expect("Program hasn't been initialized") };
     match action {
         EscrowAction::Deposit => escrow.deposit(),
         EscrowAction::ConfirmDelivery => escrow.confirm_delivery(),
@@ -48,7 +49,7 @@ unsafe extern "C" fn handle() {
 }
 
 #[no_mangle]
-unsafe extern "C" fn init() {
+extern "C" fn init() {
     let init_config: InitEscrow = msg::load().expect("Error in decoding `InitEscrow`");
     let escrow = Escrow {
         seller: init_config.seller,
@@ -56,7 +57,7 @@ unsafe extern "C" fn init() {
         price: init_config.price,
         state: EscrowState::AwaitingPayment,
     };
-    ESCROW = Some(escrow);
+    unsafe { ESCROW = Some(escrow) };
 }
 
 #[no_mangle]
