@@ -34,18 +34,13 @@ pub struct Player {
     pub attributes: BTreeSet<AttributeId>,
 }
 
-#[derive(Debug, PartialEq, Eq, Encode, Decode, TypeInfo)]
+#[derive(Default, Debug, PartialEq, Eq, Encode, Decode, TypeInfo)]
 pub enum BattleState {
+    #[default]
     Registration,
     Moves,
     Waiting,
     GameIsOver,
-}
-
-impl Default for BattleState {
-    fn default() -> Self {
-        BattleState::Registration
-    }
 }
 
 #[derive(Encode, Decode, TypeInfo, Debug)]
