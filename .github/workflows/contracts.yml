@@ -17,7 +17,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Build
-      run: cargo build --release --workspace
+      run: cargo build --release --workspace --manifest-path contracts/Cargo.toml
 
     - name: Test
-      run: cargo test --release --workspace
+      run: cargo test --release --workspace --manifest-path contracts/Cargo.toml
