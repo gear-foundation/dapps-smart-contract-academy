@@ -54,7 +54,11 @@ fn deposit_failures() {
 
     sys.mint_to(FACTORY_ID, 2 * PRICE);
     // must fail since BUYER attaches not enough value
-    let res = escrow.send_with_value(FACTORY_ID, EscrowAction::Deposit(BUYER.into()), 2 * PRICE - 500);
+    let res = escrow.send_with_value(
+        FACTORY_ID,
+        EscrowAction::Deposit(BUYER.into()),
+        2 * PRICE - 500,
+    );
     assert!(res.main_failed());
 
     // must fail since the message sender is not BUYER
