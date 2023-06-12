@@ -6,7 +6,7 @@ const PRICE: u128 = 100_000;
 
 fn init_escrow(sys: &System) {
     sys.init_logger();
-    let escrow = Program::current(&sys);
+    let escrow = Program::current(sys);
     let res = escrow.send(
         SELLER,
         InitEscrow {

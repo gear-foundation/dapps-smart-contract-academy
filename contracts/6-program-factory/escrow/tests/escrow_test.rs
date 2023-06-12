@@ -9,7 +9,7 @@ const ESCROW_ID: u64 = 1;
 
 fn init_escrow(sys: &System) {
     sys.init_logger();
-    let escrow = Program::current(&sys);
+    let escrow = Program::current(sys);
     let res = escrow.send(
         BUYER,
         InitEscrow {

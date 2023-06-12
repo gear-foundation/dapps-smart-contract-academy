@@ -148,8 +148,9 @@ impl Auction {
 
         let tx = Transaction::SettleAuction { transaction_id };
         self.transaction = Some(tx.clone());
-        return self.complete_tx(tx).await;
+        self.complete_tx(tx).await
     }
+
     async fn complete_tx(&mut self, tx: Transaction) -> Result<AuctionEvent, AuctionError> {
         match tx {
             Transaction::StartAuction {
@@ -324,7 +325,7 @@ async fn main() {
         }
         AuctionAction::MakeReservation => auction.make_reservation(),
         AuctionAction::CompleteTx(tx) => {
-            let result = if let Some(_tx) = &auction.transaction {
+            if let Some(_tx) = &auction.transaction {
                 if tx == _tx.clone() {
                     auction.complete_tx(tx).await
                 } else {
@@ -332,8 +333,7 @@ async fn main() {
                 }
             } else {
                 Err(AuctionError::NoTx)
-            };
-            result
+            }
         }
     };
     msg::reply(reply, 0).expect("Failed to encode or reply with `Result<MarketEvent, MarketErr>`");
