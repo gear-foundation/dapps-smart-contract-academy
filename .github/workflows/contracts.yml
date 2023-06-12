@@ -19,6 +19,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Setup cache
+      uses: Swatinem/rust-cache@v2
+      with:
+        workspaces: contracts -> target
+
     - name: Check formatting
       run: cd contracts && cargo fmt --all -- --check
 
