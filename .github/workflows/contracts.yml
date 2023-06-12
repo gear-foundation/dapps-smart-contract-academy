@@ -9,6 +9,9 @@ on:
     branches: [master]
     paths: [contracts/**]
 
+env:
+  CARGO_TERM_COLOR: always
+
 jobs:
   contracts:
     runs-on: ubuntu-latest
@@ -16,8 +19,14 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
+    - name: Check formatting
+      run: cd contracts && cargo fmt --all -- --check
+
+    - name: Check linting
+      run: cd contracts && cargo clippy --all-targets --all-features -- -D warnings
+
     - name: Build
-      run: cargo build --release --workspace --manifest-path contracts/Cargo.toml
+      run: cd contracts && cargo build --release --workspace
 
     - name: Test
-      run: cargo test --release --workspace --manifest-path contracts/Cargo.toml
+      run: cd contracts && cargo test --release --workspace
