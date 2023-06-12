@@ -1,4 +1,5 @@
 #![no_std]
+
 use gstd::{prelude::*, ActorId};
 
 pub type TamagotchiId = ActorId;

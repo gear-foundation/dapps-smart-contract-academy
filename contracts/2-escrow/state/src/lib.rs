@@ -1,10 +1,11 @@
 #![no_std]
+
+use escrow_io::*;
 use gmeta::metawasm;
 use gstd::{prelude::*, ActorId};
-use escrow_io::*;
 
 #[metawasm]
-pub mod metafns Metawasm {
+pub mod metafns {
     pub type State = Escrow;
 
     pub fn seller(state: State) -> ActorId {
@@ -19,4 +20,3 @@ pub mod metafns Metawasm {
         state.state
     }
 }
-

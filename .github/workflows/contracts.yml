@@ -1,0 +1,37 @@
+name: Contracts
+
+on:
+  pull_request:
+    branches: [master]
+    paths: [contracts/**]
+
+  push:
+    branches: [master]
+    paths: [contracts/**]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  contracts:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup cache
+      uses: Swatinem/rust-cache@v2
+      with:
+        workspaces: contracts -> target
+
+    - name: Check formatting
+      run: cd contracts && cargo fmt --all -- --check
+
+    - name: Check linting
+      run: cd contracts && cargo clippy --all-targets --all-features -- -D warnings
+
+    - name: Build
+      run: cd contracts && cargo build --release --workspace
+
+    - name: Test
+      run: cd contracts && cargo test --release --workspace
