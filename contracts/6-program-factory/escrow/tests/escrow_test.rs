@@ -11,7 +11,7 @@ fn init_escrow(sys: &System) {
     sys.init_logger();
     let escrow = Program::current(&sys);
     let res = escrow.send(
-        SELLER,
+        BUYER,
         InitEscrow {
             seller: SELLER.into(),
             buyer: BUYER.into(),
@@ -19,7 +19,8 @@ fn init_escrow(sys: &System) {
         },
     );
     let log = Log::builder()
-        .dest(SELLER)
+        .source(ESCROW_ID)
+        .dest(BUYER)
         .payload(EscrowEvent::ProgramInitialized);
     assert!(res.contains(&log));
 }
