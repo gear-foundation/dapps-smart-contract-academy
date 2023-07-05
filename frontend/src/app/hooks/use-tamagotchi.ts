@@ -3,6 +3,7 @@ import {
   useAccount,
   useReadFullState,
   useSendMessage,
+  withoutCommas,
 } from '@gear-js/react-hooks'
 import { HexString } from '@polkadot/util/types'
 import { useLessons, useTamagotchi } from '@/app/context'
@@ -40,7 +41,12 @@ export function useTamagotchiInit() {
 
       setTamagotchi({
         ...state,
-        isDead: [fed, rested, entertained].reduce((sum, a) => sum + a) === 0,
+        isDead:
+          [
+            +withoutCommas(fed),
+            +withoutCommas(rested),
+            +withoutCommas(entertained),
+          ].reduce((sum, a) => sum + a) === 0,
       })
 
       const { decodedAddress } = account

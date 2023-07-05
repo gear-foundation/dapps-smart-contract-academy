@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useReadWasmState } from '@gear-js/react-hooks'
+import { useReadWasmState, withoutCommas } from '@gear-js/react-hooks'
 import { useLessons, useTamagotchi } from '@/app/context'
 import { useStateMetadata } from './use-metadata'
 import { sleep } from '@/app/utils'
@@ -7,9 +7,9 @@ import type { TamagotchiState } from '@/app/types/lessons'
 import state2 from '@/assets/meta/state2.meta.wasm?url'
 
 type StateWasmResponse = {
-  fed: number
-  entertained: number
-  rested: number
+  fed: string
+  entertained: string
+  rested: string
 }
 
 export function useThrottleWasmState() {
@@ -31,7 +31,12 @@ export function useThrottleWasmState() {
       setTamagotchi({
         ...tamagotchi,
         ...state,
-        isDead: [fed, rested, entertained].reduce((sum, a) => sum + a) === 0,
+        isDead:
+          [
+            +withoutCommas(fed),
+            +withoutCommas(rested),
+            +withoutCommas(entertained),
+          ].reduce((sum, a) => sum + +a) === 0,
       } as TamagotchiState)
 
       sleep(1).then(() => {

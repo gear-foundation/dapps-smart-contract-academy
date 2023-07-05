@@ -1,74 +1,74 @@
-import clsx from "clsx";
-import { useAccount } from "@gear-js/react-hooks";
-import { useApp, useLessons, useTamagotchi } from "@/app/context";
-import { useLesson5 } from "@/app/hooks/use-lesson-5";
-import { useTamagotchiMessage } from "@/app/hooks/use-tamagotchi";
-import { NotificationResponseTypes } from "@/app/types/lessons";
-import { getNotificationTypeValue } from "@/app/utils";
-import { AccountActionsMenu } from "@/components/menus/account-actions-menu";
-import { getTamagotchiAge } from "@/app/utils/get-tamagotchi-age";
-import { TamagotchiInfoCardRow } from "@/components/tamagotchi/tamagotchi-info-card-row";
+import clsx from 'clsx'
+import { useAccount, withoutCommas } from '@gear-js/react-hooks'
+import { useApp, useLessons, useTamagotchi } from '@/app/context'
+import { useLesson5 } from '@/app/hooks/use-lesson-5'
+import { useTamagotchiMessage } from '@/app/hooks/use-tamagotchi'
+import { NotificationResponseTypes } from '@/app/types/lessons'
+import { getNotificationTypeValue } from '@/app/utils'
+import { AccountActionsMenu } from '@/components/menus/account-actions-menu'
+import { getTamagotchiAge } from '@/app/utils/get-tamagotchi-age'
+import { TamagotchiInfoCardRow } from '@/components/tamagotchi/tamagotchi-info-card-row'
 
 export const TamagotchiInfoCard = () => {
-  const { account } = useAccount();
-  const { setIsPending } = useApp();
-  const { lesson } = useLessons();
-  const { tamagotchi } = useTamagotchi();
+  const { account } = useAccount()
+  const { setIsPending } = useApp()
+  const { lesson } = useLessons()
+  const { tamagotchi } = useTamagotchi()
   const { setNotification, activeNotification, setActiveNotification } =
-    useLesson5();
-  const send = useTamagotchiMessage();
+    useLesson5()
+  const send = useTamagotchiMessage()
 
-  const fullView = Boolean(lesson && lesson?.step > 1);
+  const fullView = Boolean(lesson && lesson?.step > 1)
 
   const onSuccess = (str: NotificationResponseTypes) => {
     if (activeNotification) {
       setNotification((prev) => ({
         ...prev,
         ...getNotificationTypeValue(str),
-      }));
-      setActiveNotification(undefined);
+      }))
+      setActiveNotification(undefined)
     }
-    setIsPending(false);
-  };
-  const onError = () => setIsPending(false);
+    setIsPending(false)
+  }
+  const onError = () => setIsPending(false)
   const feedHandler = () => {
-    setIsPending(true);
-    send({ Feed: null }, { onSuccess: () => onSuccess("FeedMe"), onError });
-  };
+    setIsPending(true)
+    send({ Feed: null }, { onSuccess: () => onSuccess('FeedMe'), onError })
+  }
   const playHandler = () => {
-    setIsPending(true);
+    setIsPending(true)
     send(
       { Play: null },
       {
-        onSuccess: () => onSuccess("PlayWithMe"),
+        onSuccess: () => onSuccess('PlayWithMe'),
         onError,
       }
-    );
-  };
+    )
+  }
   const sleepHandler = () => {
-    setIsPending(true);
+    setIsPending(true)
     send(
       { Sleep: null },
       {
-        onSuccess: () => onSuccess("WantToSleep"),
+        onSuccess: () => onSuccess('WantToSleep'),
         onError,
       }
-    );
-  };
+    )
+  }
 
   return (
     <>
       {tamagotchi && (
         <div
           className={clsx(
-            "flex gap-12 items-center p-4 bg-white/5 rounded-2xl",
-            fullView && "w-full pr-12"
+            'flex gap-12 items-center p-4 bg-white/5 rounded-2xl',
+            fullView && 'w-full pr-12'
           )}
         >
           <div className="basis-[415px] w-full px-8 py-6 bg-[#1E1E1E] rounded-2xl">
             <div className="flex justify-between gap-4">
               <h2 className="typo-h2 text-primary truncate max-w-[9ch]">
-                {tamagotchi.name ? tamagotchi.name : "Geary"}
+                {tamagotchi.name ? tamagotchi.name : 'Geary'}
               </h2>
               <div>
                 <AccountActionsMenu />
@@ -107,38 +107,38 @@ export const TamagotchiInfoCard = () => {
             <div className="basis-[620px] w-full space-y-6 grow">
               <TamagotchiInfoCardRow
                 label="Hungry"
-                value={tamagotchi.fed}
+                value={+withoutCommas(tamagotchi.fed)}
                 icon="feed"
                 labelBtn="Feed"
                 onClick={feedHandler}
                 tooltipText='Your character has a low fed score. In order to increase the level, please click on the "Feed" button'
                 tooltipTitle="Low level of fed"
-                isActive={activeNotification === "FeedMe"}
+                isActive={activeNotification === 'FeedMe'}
               />
               <TamagotchiInfoCardRow
                 label="Happy"
-                value={tamagotchi.entertained}
+                value={+withoutCommas(tamagotchi.entertained)}
                 icon="happy"
                 labelBtn="Play"
                 onClick={playHandler}
                 tooltipText='Your character has a low happiness score. In order to increase the level, please click on the "Play" button'
                 tooltipTitle="Low level of happiness"
-                isActive={activeNotification === "PlayWithMe"}
+                isActive={activeNotification === 'PlayWithMe'}
               />
               <TamagotchiInfoCardRow
                 label="Tired"
-                value={tamagotchi.rested}
+                value={+withoutCommas(tamagotchi.rested)}
                 icon="tired"
                 labelBtn="Sleep"
                 onClick={sleepHandler}
                 tooltipText='Your character has a low rest score. In order to increase the level, please click on the "Sleep" button'
                 tooltipTitle="Low level of rest"
-                isActive={activeNotification === "WantToSleep"}
+                isActive={activeNotification === 'WantToSleep'}
               />
             </div>
           )}
         </div>
       )}
     </>
-  );
-};
+  )
+}

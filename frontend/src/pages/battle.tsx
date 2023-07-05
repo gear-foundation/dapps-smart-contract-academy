@@ -1,62 +1,58 @@
-import { buttonStyles } from "@gear-js/ui";
-import { useBattleMessage, useInitBattleData } from "@/app/hooks/use-battle";
-import { useAccount } from "@gear-js/react-hooks";
-import { useApp, useBattle, useFTStore } from "@/app/context";
-import { useEffect, useState } from "react";
-import { TamagotchiState } from "@/app/types/lessons";
-import { TamagotchiBattleTopStats } from "@/components/tamagotchi/tamagotchi-battle-top-stats";
-import { TamagotchiAvatar } from "@/components/tamagotchi/tamagotchi-avatar";
-import { getTamagotchiAgeDiff } from "@/app/utils/get-tamagotchi-age";
-import { getAttributesById } from "@/app/utils";
-import clsx from "clsx";
-import { Icon } from "@/components/ui/icon";
-import { TamagotchiBattleInfoCard } from "@/components/tamagotchi/tamagotchi-battle-info-card";
-import { StartBattleForm } from "@/components/forms/start-battle-form";
+import { buttonStyles } from '@gear-js/ui'
+import { useBattleMessage, useInitBattleData } from '@/app/hooks/use-battle'
+import { useAccount, withoutCommas } from '@gear-js/react-hooks'
+import { useApp, useBattle, useFTStore } from '@/app/context'
+import { useEffect, useState } from 'react'
+import { TamagotchiState } from '@/app/types/lessons'
+import { TamagotchiBattleTopStats } from '@/components/tamagotchi/tamagotchi-battle-top-stats'
+import { TamagotchiAvatar } from '@/components/tamagotchi/tamagotchi-avatar'
+import { getTamagotchiAgeDiff } from '@/app/utils/get-tamagotchi-age'
+import { getAttributesById } from '@/app/utils'
+import clsx from 'clsx'
+import { Icon } from '@/components/ui/icon'
+import { TamagotchiBattleInfoCard } from '@/components/tamagotchi/tamagotchi-battle-info-card'
+import { StartBattleForm } from '@/components/forms/start-battle-form'
 
 export default function Battle() {
-  const { account } = useAccount();
-  const { isPending, setIsPending } = useApp();
-  const { store } = useFTStore();
-  const {
-    battleState: battle,
-    players: warriors,
-    setBattleState,
-  } = useBattle();
-  useInitBattleData();
-  const [isAllowed, setIsAllowed] = useState<boolean>(false);
-  const [winner, setWinner] = useState<TamagotchiState>();
-  const sendMessage = useBattleMessage();
+  const { account } = useAccount()
+  const { isPending, setIsPending } = useApp()
+  const { store } = useFTStore()
+  const { battleState: battle, players: warriors, setBattleState } = useBattle()
+  useInitBattleData()
+  const [isAllowed, setIsAllowed] = useState<boolean>(false)
+  const [winner, setWinner] = useState<TamagotchiState>()
+  const sendMessage = useBattleMessage()
 
   const handleAttack = () => {
-    const onError = () => setIsPending(false);
-    const onSuccess = () => setIsPending(false);
-    if (battle?.state === "GameIsOver") {
-      setIsPending(true);
+    const onError = () => setIsPending(false)
+    const onSuccess = () => setIsPending(false)
+    if (battle?.state === 'GameIsOver') {
+      setIsPending(true)
       sendMessage(
         { StartNewGame: null },
         {
           onSuccess: () => {
-            setBattleState(undefined);
-            setIsPending(false);
+            setBattleState(undefined)
+            setIsPending(false)
           },
           onError,
         }
-      );
+      )
     }
-    if (battle?.state === "Moves") {
-      setIsPending(true);
-      sendMessage({ MakeMove: null }, { onError, onSuccess });
+    if (battle?.state === 'Moves') {
+      setIsPending(true)
+      sendMessage({ MakeMove: null }, { onError, onSuccess })
     }
-  };
+  }
 
   useEffect(() => {
-    if (battle?.state === "GameIsOver" && warriors) {
+    if (battle?.state === 'GameIsOver' && warriors) {
       setWinner(
         warriors[battle.players.findIndex((p) => p.tmgId === battle.winner)]
-      );
+      )
     }
     // console.log({ battle });
-  }, [battle, warriors]);
+  }, [battle, warriors])
 
   useEffect(() => {
     if (battle && account) {
@@ -64,14 +60,14 @@ export default function Battle() {
         battle.players.filter(
           (player) => player.owner === account.decodedAddress
         ).length > 0
-      );
+      )
     }
-  }, [battle, account]);
+  }, [battle, account])
 
   return (
     <>
       {battle &&
-        (battle?.state !== "Registration" && warriors.length > 0 ? (
+        (battle?.state !== 'Registration' && warriors.length > 0 ? (
           isAllowed ? (
             <>
               {/*Top*/}
@@ -79,7 +75,7 @@ export default function Battle() {
                 <TamagotchiBattleTopStats
                   state={battle?.state}
                   isWinner={battle?.winner === battle?.players[0]?.tmgId}
-                  health={Math.round(warriors[0].energy / 100)}
+                  health={Math.round(+withoutCommas(warriors[0].energy) / 100)}
                 >
                   <TamagotchiAvatar
                     inBattle
@@ -90,20 +86,22 @@ export default function Battle() {
                       battle.players[0].attributes
                     )}
                     isActive={
-                      battle?.currentTurn === 0 &&
-                      battle?.state !== "GameIsOver"
+                      +withoutCommas(battle?.currentTurn) === 0 &&
+                      battle?.state !== 'GameIsOver'
                     }
                     isWinner={
-                      battle?.state === "GameIsOver" &&
+                      battle?.state === 'GameIsOver' &&
                       battle.winner === battle.players[0].tmgId
                     }
                   />
                 </TamagotchiBattleTopStats>
-                {battle?.state === "Moves" && (
+                {battle?.state === 'Moves' && (
                   <div
                     className={clsx(
-                      "flex",
-                      battle?.currentTurn === 1 && "rotate-180"
+                      'flex',
+                      battle &&
+                        +withoutCommas(battle.currentTurn) === 1 &&
+                        'rotate-180'
                     )}
                   >
                     <Icon
@@ -123,7 +121,7 @@ export default function Battle() {
                 <TamagotchiBattleTopStats
                   state={battle?.state}
                   isWinner={battle?.winner === battle?.players[1]?.tmgId}
-                  health={Math.round(warriors[1].energy / 100)}
+                  health={Math.round(+withoutCommas(warriors[1].energy) / 100)}
                   isReverse
                 >
                   <TamagotchiAvatar
@@ -135,11 +133,12 @@ export default function Battle() {
                       battle.players[1].attributes
                     )}
                     isActive={
-                      battle?.currentTurn === 1 &&
-                      battle?.state !== "GameIsOver"
+                      battle &&
+                      +withoutCommas(battle.currentTurn) === 1 &&
+                      battle?.state !== 'GameIsOver'
                     }
                     isWinner={
-                      battle?.state === "GameIsOver" &&
+                      battle?.state === 'GameIsOver' &&
                       battle.winner === battle.players[1].tmgId
                     }
                   />
@@ -155,18 +154,18 @@ export default function Battle() {
                       store,
                       battle.players[0].attributes
                     )}
-                    energy={warriors[1]?.energy}
+                    energy={+withoutCommas(warriors[1]?.energy || '0')}
                     className="grow w-full h-full "
                     isActive={
-                      battle?.currentTurn === 0 &&
-                      battle?.state !== "GameIsOver"
+                      +withoutCommas(battle?.currentTurn || '0') === 0 &&
+                      battle?.state !== 'GameIsOver'
                     }
                     isWinner={
-                      battle?.state === "GameIsOver" &&
+                      battle?.state === 'GameIsOver' &&
                       battle.winner === battle.players[0].tmgId
                     }
                     isDead={
-                      battle?.state === "GameIsOver" &&
+                      battle?.state === 'GameIsOver' &&
                       battle.winner !== battle.players[0].tmgId
                     }
                   />
@@ -185,10 +184,10 @@ export default function Battle() {
 
                   <button
                     className={clsx(
-                      "btn items-center gap-2 min-w-[250px]",
-                      battle?.state === "Moves"
-                        ? "bg-error text-white hover:bg-red-600 transition-colors"
-                        : battle?.state === "GameIsOver"
+                      'btn items-center gap-2 min-w-[250px]',
+                      battle?.state === 'Moves'
+                        ? 'bg-error text-white hover:bg-red-600 transition-colors'
+                        : battle?.state === 'GameIsOver'
                         ? buttonStyles.secondary
                         : buttonStyles.primary,
                       buttonStyles.button
@@ -196,14 +195,14 @@ export default function Battle() {
                     onClick={handleAttack}
                     disabled={isPending}
                   >
-                    <Icon name="swords" className="w-5 h-5" />{" "}
-                    {battle?.state === "Moves"
-                      ? "Attack"
-                      : battle?.state === "Waiting"
-                      ? "Wait..."
-                      : battle?.state === "GameIsOver"
-                      ? "Finish Game"
-                      : ""}
+                    <Icon name="swords" className="w-5 h-5" />{' '}
+                    {battle?.state === 'Moves'
+                      ? 'Attack'
+                      : battle?.state === 'Waiting'
+                      ? 'Wait...'
+                      : battle?.state === 'GameIsOver'
+                      ? 'Finish Game'
+                      : ''}
                   </button>
                 </div>
                 <div className="w-full h-full flex flex-col">
@@ -214,18 +213,18 @@ export default function Battle() {
                       store,
                       battle.players[1].attributes
                     )}
-                    energy={warriors[0].energy}
+                    energy={+withoutCommas(warriors[0].energy)}
                     className="grow w-full h-full "
                     isActive={
-                      battle?.currentTurn === 1 &&
-                      battle?.state !== "GameIsOver"
+                      +withoutCommas(battle?.currentTurn || '0') === 1 &&
+                      battle?.state !== 'GameIsOver'
                     }
                     isWinner={
-                      battle?.state === "GameIsOver" &&
+                      battle?.state === 'GameIsOver' &&
                       battle.winner === battle.players[1].tmgId
                     }
                     isDead={
-                      battle?.state === "GameIsOver" &&
+                      battle?.state === 'GameIsOver' &&
                       battle.winner !== battle.players[1].tmgId
                     }
                   />
@@ -250,5 +249,5 @@ export default function Battle() {
           <StartBattleForm />
         ))}
     </>
-  );
+  )
 }

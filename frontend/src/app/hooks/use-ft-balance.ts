@@ -56,11 +56,11 @@ export function useFTStorage() {
     if (state) {
       for (const a of state.balances) {
         if (a[0] === lesson?.programId) {
-          return a[1] as number
+          return a[1]
         }
       }
     }
-    return 0
+    return '0.00'
   }
   return getBalanceByAccountId()
 }

@@ -1,13 +1,13 @@
-import { useAccount } from "@gear-js/react-hooks";
-import { TamagotchiState } from "@/app/types/lessons";
-import { getTamagotchiAge } from "@/app/utils/get-tamagotchi-age";
+import { useAccount, withoutCommas } from '@gear-js/react-hooks'
+import { TamagotchiState } from '@/app/types/lessons'
+import { getTamagotchiAge } from '@/app/utils/get-tamagotchi-age'
 
 export const TamagotchiBattleInfoCard = ({
   tamagotchi,
 }: {
-  tamagotchi: TamagotchiState;
+  tamagotchi: TamagotchiState
 }) => {
-  const { account } = useAccount();
+  const { account } = useAccount()
   return (
     <div className="flex gap-12 items-center p-4 bg-[#292929] rounded-2xl w-fit">
       <div className="basis-[415px] w-full px-8 py-6 bg-[#1E1E1E] rounded-2xl">
@@ -42,5 +42,5 @@ export const TamagotchiBattleInfoCard = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

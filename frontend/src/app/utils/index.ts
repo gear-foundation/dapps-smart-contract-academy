@@ -68,12 +68,12 @@ export const getStoreItems = (
   const store: StoreItemType[] = []
   const tamagotchi: StoreItemsNames[] = []
   for (const idx in state.attributes) {
-    const isBought: boolean = state.owners[programId]?.includes(+idx)
+    const isBought: boolean = state.owners[programId]?.includes(idx)
 
     if (isBought) tamagotchi.push(state.attributes[+idx][0].media)
 
     store.push({
-      id: +idx,
+      id: idx,
       amount: state.attributes[+idx][1],
       description: state.attributes[+idx][0],
       isBought,
@@ -83,14 +83,14 @@ export const getStoreItems = (
 }
 export const getAttributesById = (
   state: ItemsStoreResponse | undefined,
-  ids: number[]
+  ids: string[]
 ): StoreItemsNames[] => {
   if (!state) return []
   if (ids.length < 1) return []
 
   const result: StoreItemsNames[] = []
   for (const id in state.attributes) {
-    if (ids.includes(+id)) result.push(state.attributes[id][0].media)
+    if (ids.includes(id)) result.push(state.attributes[+id][0].media)
   }
   return result
 }

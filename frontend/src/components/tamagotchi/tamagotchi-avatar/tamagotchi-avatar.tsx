@@ -8,6 +8,7 @@ import { StoreItemsNames } from '@/app/types/ft-store'
 import { useLessons, useTamagotchi } from '@/app/context'
 import { getTamagotchiAgeDiff } from '@/app/utils/get-tamagotchi-age'
 import { Icon } from '@/components/ui/icon'
+import { withoutCommas } from '@gear-js/react-hooks'
 
 type TamagotchiAvatarProps = {
   emotion?: TamagotchiAvatarEmotions
@@ -88,9 +89,19 @@ export const TamagotchiAvatar = ({
             ? 'scared'
             : isWinner
             ? 'hello'
-            : 4000 > Math.min.apply(null, [fed, rested, entertained])
+            : 4000 >
+              Math.min.apply(null, [
+                +withoutCommas(fed),
+                +withoutCommas(rested),
+                +withoutCommas(entertained),
+              ])
             ? 'crying'
-            : 6000 > Math.min.apply(null, [fed, rested, entertained])
+            : 6000 >
+              Math.min.apply(null, [
+                +withoutCommas(fed),
+                +withoutCommas(rested),
+                +withoutCommas(entertained),
+              ])
             ? 'angry'
             : emotion
         )
