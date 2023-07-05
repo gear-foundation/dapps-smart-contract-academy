@@ -1,7 +1,5 @@
 import { useReadFullState, useSendMessage } from '@gear-js/react-hooks'
 import type { HexString } from '@polkadot/util/types'
-import { useMetadata } from './use-metadata'
-import metaCode from '@/assets/meta/ft_main.meta.txt'
 import { useApp, useFTBalance, useLessons } from '@/app/context'
 import type {
   BalanceLogic,
@@ -70,18 +68,10 @@ export function useFTStorage() {
 export function useGetFTBalance() {
   const { lesson } = useLessons()
   const sendHandler = useFtMessage()
-  const { metadata } = useMetadata(metaCode)
   const balance = useFTStorage()
   const { setIsPending } = useApp()
 
   const handler = (cb?: () => void) => {
-    // const encodedMint = metadata?.createType(9, {
-    //   Mint: {
-    //     amount: 5000,
-    //     recipient: lesson?.programId,
-    //   },
-    // })
-
     const onSuccess = () => {
       setIsPending(false)
       cb && cb()

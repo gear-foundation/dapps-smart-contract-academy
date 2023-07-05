@@ -1,32 +1,11 @@
-import {
-  createContext,
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
-import { getProgramMetadata, ProgramMetadata } from '@gear-js/api'
+import { createContext, ReactNode, useEffect, useRef, useState } from 'react'
+import { ProgramMetadata } from '@gear-js/api'
 import { LessonState } from '@/app/types/lessons'
-import { getLessonAssets } from '@/app/utils/get-lesson-assets'
-
-type Program = {
-  lesson?: LessonState
-  setLesson: Dispatch<SetStateAction<LessonState | undefined>>
-  lessonMeta?: ProgramMetadata
-  isAdmin: boolean
-  setIsAdmin: Dispatch<SetStateAction<boolean>>
-  isReady: boolean
-  setIsReady: Dispatch<SetStateAction<boolean>>
-  resetLesson: () => void
-}
-
-export const LessonsCtx = createContext({} as Program)
+import { useLessonAssets } from '@/app/utils/get-lesson-assets'
 
 const key = 'tmgState'
 
-const useLesson = (): Program => {
+const useProgram = () => {
   const [lesson, setLesson] = useState<LessonState>()
   const [lessonMeta, setLessonMeta] = useState<ProgramMetadata>()
   const [isAdmin, setIsAdmin] = useState<boolean>(false)
@@ -39,15 +18,12 @@ const useLesson = (): Program => {
     localStorage.removeItem(key)
   }
 
-  useEffect(() => {
-    if (lesson) {
-      localStorage.setItem(key, JSON.stringify(lesson))
+  const assets = useLessonAssets()
 
-      fetch(getLessonAssets(+lesson.step))
-        .then((res) => res.text())
-        .then((raw) => getProgramMetadata(`0x${raw}`))
-        .then((meta) => setLessonMeta(meta))
-        .catch((e) => console.log('error', e))
+  useEffect(() => {
+    if (lesson && assets.every(Boolean)) {
+      localStorage.setItem(key, JSON.stringify(lesson))
+      setLessonMeta(assets[+lesson.step || 0])
     } else {
       if (!isParsed.current) {
         const ls = localStorage.getItem(key)
@@ -57,7 +33,7 @@ const useLesson = (): Program => {
         }
       } else localStorage.removeItem(key)
     }
-  }, [lesson])
+  }, [assets, lesson])
 
   return {
     lesson,
@@ -71,7 +47,9 @@ const useLesson = (): Program => {
   }
 }
 
+export const LessonsCtx = createContext({} as ReturnType<typeof useProgram>)
+
 export function LessonsProvider({ children }: { children: ReactNode }) {
   const { Provider } = LessonsCtx
-  return <Provider value={useLesson()}>{children}</Provider>
+  return <Provider value={useProgram()}>{children}</Provider>
 }
