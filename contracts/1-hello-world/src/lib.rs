@@ -34,9 +34,3 @@ extern "C" fn state() {
     let greeting = unsafe { GREETING.get_or_insert(Default::default()) };
     msg::reply_bytes(greeting, 0).expect("Failed to share state");
 }
-
-#[no_mangle]
-extern "C" fn metahash() {
-    let metahash: [u8; 32] = include!("../.metahash");
-    msg::reply(metahash, 0).expect("Failed to share metahash");
-}

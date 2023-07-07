@@ -361,6 +361,7 @@ async fn transfer_tokens(
             },
         },
         0,
+        0,
     );
 
     let (_msg_id, msg_future) = if let Ok(msg_future) = result {
@@ -377,7 +378,7 @@ async fn transfer_tokens(
 }
 
 async fn get_owner(tamagotchi_id: &TamagotchiId) -> Result<ActorId, AuctionError> {
-    let reply = msg::send_for_reply_as(*tamagotchi_id, TmgAction::Owner, 0)
+    let reply = msg::send_for_reply_as(*tamagotchi_id, TmgAction::Owner, 0, 0)
         .expect("Error in sending a message `TmgAction::Owner` to Tamagotchi contract")
         .await;
     match reply {
@@ -390,7 +391,7 @@ async fn change_owner(
     tamagotchi_id: &TamagotchiId,
     new_owner: &ActorId,
 ) -> Result<TmgEvent, ContractError> {
-    msg::send_for_reply_as::<_, TmgEvent>(*tamagotchi_id, TmgAction::Transfer(*new_owner), 0)
+    msg::send_for_reply_as::<_, TmgEvent>(*tamagotchi_id, TmgAction::Transfer(*new_owner), 0, 0)
         .expect("Error in sending a message `TmgAction::ChangeOwner` to Tamagotchi contract")
         .await
 }

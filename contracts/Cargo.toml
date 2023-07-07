@@ -31,10 +31,10 @@ blake2-rfc = { version = "0.2.18", default-features = false }
 escrow-io = { path = "2-escrow/io" }
 escrow-new-io = { path = "6-program-factory/escrow/io" }
 ft-main-io = { git = "https://github.com/gear-dapps/sharded-fungible-token.git", tag = "2.1.2" }
-gear-wasm-builder = { git = "https://github.com/gear-tech/gear.git", branch = "academy" }
-gmeta = { git = "https://github.com/gear-tech/gear.git", branch = "academy" }
-gtest = { git = "https://github.com/gear-tech/gear.git", branch = "academy" }
-gstd = { git = "https://github.com/gear-tech/gear.git", rev = "78dfa07" }
+gear-wasm-builder = { git = "https://github.com/gear-tech/gear.git", rev = "946ac47" }
+gmeta = { git = "https://github.com/gear-tech/gear.git", rev = "946ac47" }
+gtest = { git = "https://github.com/gear-tech/gear.git", rev = "946ac47" }
+gstd = { git = "https://github.com/gear-tech/gear.git", rev = "946ac47" }
 hashbrown = "0.13"
 hello-world-io = { path = "1-hello-world/io" }
 parity-scale-codec = { version = "3", default-features = false }

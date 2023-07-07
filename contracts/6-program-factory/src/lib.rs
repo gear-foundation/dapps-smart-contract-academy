@@ -111,7 +111,7 @@ pub enum FactoryEvent {
 }
 
 async fn send_message(escrow_address: &ActorId, escrow_payload: EscrowAction) {
-    msg::send_for_reply_as::<_, EscrowEvent>(*escrow_address, escrow_payload, msg::value())
+    msg::send_for_reply_as::<_, EscrowEvent>(*escrow_address, escrow_payload, msg::value(), 0)
         .expect("Error during a sending message to a Escrow program")
         .await
         .expect("Unable to decode EscrowEvent");
