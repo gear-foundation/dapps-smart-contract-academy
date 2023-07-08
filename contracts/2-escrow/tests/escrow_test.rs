@@ -15,7 +15,7 @@ fn init_escrow(sys: &System) {
             price: PRICE,
         },
     );
-    assert!(res.log().is_empty());
+    assert!(!res.main_failed());
 }
 
 const ESCROW_ID: u64 = 1;
