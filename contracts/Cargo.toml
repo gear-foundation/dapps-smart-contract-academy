@@ -30,7 +30,7 @@ battle-io = { path = "7-battle/io" }
 blake2-rfc = { version = "0.2.18", default-features = false }
 escrow-io = { path = "2-escrow/io" }
 escrow-new-io = { path = "6-program-factory/escrow/io" }
-ft-main-io = { git = "https://github.com/gear-dapps/sharded-fungible-token.git", tag = "2.1.2" }
+ft-main-io = { git = "https://github.com/gear-dapps/sharded-fungible-token.git", branch = "update-deps" } # FIXME: change to tag
 gear-wasm-builder = { git = "https://github.com/gear-tech/gear.git", rev = "946ac47" }
 gmeta = { git = "https://github.com/gear-tech/gear.git", rev = "946ac47" }
 gtest = { git = "https://github.com/gear-tech/gear.git", rev = "946ac47" }

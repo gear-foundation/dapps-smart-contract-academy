@@ -23,6 +23,7 @@ impl EscrowFactory {
             .encode(),
             GAS_FOR_CREATION,
             0,
+            0,
         )
         .expect("Error during Escrow program initialization")
         .await

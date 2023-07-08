@@ -2,7 +2,7 @@
 
 use auction_io::*;
 use ft_main_io::{FTokenAction, FTokenEvent, LogicAction};
-use gstd::{errors::ContractError, exec, msg, prelude::*, ActorId, ReservationId};
+use gstd::{errors::Result, exec, msg, prelude::*, ActorId, ReservationId};
 use tmg_io::*;
 const MIN_DURATION: u64 = 300_000;
 const RESERVATION_AMOUNT: u64 = 50_000_000_000;
@@ -387,10 +387,7 @@ async fn get_owner(tamagotchi_id: &TamagotchiId) -> Result<ActorId, AuctionError
     }
 }
 
-async fn change_owner(
-    tamagotchi_id: &TamagotchiId,
-    new_owner: &ActorId,
-) -> Result<TmgEvent, ContractError> {
+async fn change_owner(tamagotchi_id: &TamagotchiId, new_owner: &ActorId) -> Result<TmgEvent> {
     msg::send_for_reply_as::<_, TmgEvent>(*tamagotchi_id, TmgAction::Transfer(*new_owner), 0, 0)
         .expect("Error in sending a message `TmgAction::ChangeOwner` to Tamagotchi contract")
         .await
