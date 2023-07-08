@@ -1,22 +1,22 @@
-import { TooltipWrapper, Button, buttonStyles } from "@gear-js/ui";
-import clsx from "clsx";
-import { useGetFTBalance } from "@/app/hooks/use-ft-balance";
-import { useApp } from "@/app/context";
-import { Icon } from "@/components/ui/icon";
+import { TooltipWrapper, Button, buttonStyles } from '@gear-js/ui'
+import { cn } from '@/app/utils'
+import { useGetFTBalance } from '@/app/hooks/use-ft-balance'
+import { useApp } from '@/app/context'
+import { SpriteIcon } from '@/components/ui/sprite-icon'
 
 export const GetTokensBalance = () => {
-  const { handler } = useGetFTBalance();
-  const { isPending } = useApp();
+  const { handler } = useGetFTBalance()
+  const { isPending } = useApp()
 
   return (
     <div>
       <TooltipWrapper text="Get Tokens">
         <Button
-          className={clsx("group !p-2.5", buttonStyles.light)}
+          className={cn('group !p-2.5', buttonStyles.light)}
           icon={() => (
             <>
-              <Icon name="test-balance" width={20} height={20} />
-              <Icon
+              <SpriteIcon name="test-balance" width={20} height={20} />
+              <SpriteIcon
                 name="plus"
                 width={12}
                 height={12}
@@ -29,5 +29,5 @@ export const GetTokensBalance = () => {
         />
       </TooltipWrapper>
     </div>
-  );
-};
+  )
+}

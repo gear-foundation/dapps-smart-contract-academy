@@ -5,8 +5,8 @@ import {
   useSendMessage,
   withoutCommas,
 } from '@gear-js/react-hooks'
-import { HexString } from '@polkadot/util/types'
 import { useLessons, useTamagotchi } from '@/app/context'
+import type { HexString } from '@polkadot/util/types'
 import type { TamagotchiState } from '@/app/types/lessons'
 
 export function useReadTamagotchi<T>() {

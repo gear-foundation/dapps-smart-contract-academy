@@ -1,10 +1,9 @@
-import clsx from 'clsx'
 import { useAccount, withoutCommas } from '@gear-js/react-hooks'
 import { useApp, useLessons, useTamagotchi } from '@/app/context'
 import { useLesson5 } from '@/app/hooks/use-lesson-5'
 import { useTamagotchiMessage } from '@/app/hooks/use-tamagotchi'
 import { NotificationResponseTypes } from '@/app/types/lessons'
-import { getNotificationTypeValue } from '@/app/utils'
+import { cn, getNotificationTypeValue } from '@/app/utils'
 import { AccountActionsMenu } from '@/components/menus/account-actions-menu'
 import { getTamagotchiAge } from '@/app/utils/get-tamagotchi-age'
 import { TamagotchiInfoCardRow } from '@/components/tamagotchi/tamagotchi-info-card-row'
@@ -60,7 +59,7 @@ export const TamagotchiInfoCard = () => {
     <>
       {tamagotchi && (
         <div
-          className={clsx(
+          className={cn(
             'flex gap-12 items-center p-4 bg-white/5 rounded-2xl',
             fullView && 'w-full pr-12'
           )}

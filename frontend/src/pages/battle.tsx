@@ -7,9 +7,8 @@ import { TamagotchiState } from '@/app/types/lessons'
 import { TamagotchiBattleTopStats } from '@/components/tamagotchi/tamagotchi-battle-top-stats'
 import { TamagotchiAvatar } from '@/components/tamagotchi/tamagotchi-avatar'
 import { getTamagotchiAgeDiff } from '@/app/utils/get-tamagotchi-age'
-import { getAttributesById } from '@/app/utils'
-import clsx from 'clsx'
-import { Icon } from '@/components/ui/icon'
+import { cn, getAttributesById } from "@/app/utils";
+import { SpriteIcon } from '@/components/ui/sprite-icon'
 import { TamagotchiBattleInfoCard } from '@/components/tamagotchi/tamagotchi-battle-info-card'
 import { StartBattleForm } from '@/components/forms/start-battle-form'
 
@@ -97,22 +96,22 @@ export default function Battle() {
                 </TamagotchiBattleTopStats>
                 {battle?.state === 'Moves' && (
                   <div
-                    className={clsx(
+                    className={cn(
                       'flex',
                       battle &&
                         +withoutCommas(battle.currentTurn) === 1 &&
                         'rotate-180'
                     )}
                   >
-                    <Icon
+                    <SpriteIcon
                       name="battle-next-step"
                       className="w-6 xl:w-10 aspect-[1/2] text-white animate-battle-turn-1 transition-opacity"
                     />
-                    <Icon
+                    <SpriteIcon
                       name="battle-next-step"
                       className="w-6 xl:w-10 aspect-[1/2] text-white animate-battle-turn-2 transition-opacity"
                     />
-                    <Icon
+                    <SpriteIcon
                       name="battle-next-step"
                       className="w-6 xl:w-10 aspect-[1/2] text-white animate-battle-turn-3 transition-opacity"
                     />
@@ -183,7 +182,7 @@ export default function Battle() {
                   )}
 
                   <button
-                    className={clsx(
+                    className={cn(
                       'btn items-center gap-2 min-w-[250px]',
                       battle?.state === 'Moves'
                         ? 'bg-error text-white hover:bg-red-600 transition-colors'
@@ -195,7 +194,7 @@ export default function Battle() {
                     onClick={handleAttack}
                     disabled={isPending}
                   >
-                    <Icon name="swords" className="w-5 h-5" />{' '}
+                    <SpriteIcon name="swords" className="w-5 h-5" />{' '}
                     {battle?.state === 'Moves'
                       ? 'Attack'
                       : battle?.state === 'Waiting'

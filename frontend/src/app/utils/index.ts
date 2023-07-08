@@ -12,6 +12,8 @@ import type {
   StoreItemsNames,
   StoreItemType,
 } from '@/app/types/ft-store'
+import { ClassValue, clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
 
 export const copyToClipboard = async (
   key: string,
@@ -97,3 +99,7 @@ export const getAttributesById = (
 
 export const sleep = (s: number) =>
   new Promise((resolve) => setTimeout(resolve, s * 1000))
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
