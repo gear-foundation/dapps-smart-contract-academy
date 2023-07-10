@@ -423,7 +423,7 @@ dependencies = [
 [[package]]
 name = "ft-main-io"
 version = "2.1.4"
-source = "git+https://github.com/gear-dapps/sharded-fungible-token.git?branch=update-deps#a12d468f42253a1e8858c847ea7875ae4a7cbcb5"
+source = "git+https://github.com/gear-foundation/dapps-sharded-fungible-token.git?branch=update-deps#a12d468f42253a1e8858c847ea7875ae4a7cbcb5"
 dependencies = [
  "gmeta",
  "gstd",
