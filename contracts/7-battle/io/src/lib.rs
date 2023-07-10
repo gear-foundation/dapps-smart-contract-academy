@@ -1,13 +1,13 @@
 #![no_std]
 
-use gmeta::{InOut, Metadata};
+use gmeta::{In, InOut, Metadata};
 use gstd::{prelude::*, ActorId};
 use store_io::{AttributeId, TamagotchiId};
 
 pub struct BattleMetadata;
 
 impl Metadata for BattleMetadata {
-    type Init = InOut<ActorId, ()>;
+    type Init = In<ActorId>;
     type Handle = InOut<BattleAction, BattleEvent>;
     type Others = ();
     type Reply = ();

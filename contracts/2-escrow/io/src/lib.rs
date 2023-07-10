@@ -1,16 +1,16 @@
 #![no_std]
 
-use gmeta::{InOut, Metadata};
+use gmeta::{In, InOut, Metadata};
 use gstd::{prelude::*, ActorId};
 use scale_info::TypeInfo;
 
 pub struct ProgramMetadata;
 
 impl Metadata for ProgramMetadata {
-    type Init = InOut<InitEscrow, ()>;
+    type Init = In<InitEscrow>;
     type Handle = InOut<EscrowAction, EscrowEvent>;
-    type Reply = InOut<(), ()>;
-    type Others = InOut<(), ()>;
+    type Reply = ();
+    type Others = ();
     type Signal = ();
     type State = EscrowState;
 }
