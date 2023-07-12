@@ -3,6 +3,7 @@ import { useTamagotchiInit } from '@/app/hooks/use-tamagotchi'
 import { useThrottleWasmState } from '@/app/hooks/use-read-wasm-state'
 import { useItemsStore } from '@/app/hooks/use-ft-store'
 import { lazy, Suspense } from 'react'
+import { Loader } from '@/components/loaders/loader'
 
 const routes = [
   { path: '/', Page: lazy(() => import('./home')) },
@@ -22,7 +23,7 @@ export const Routing = () => {
           key={path}
           path={path}
           element={
-            <Suspense fallback={<>Page {Page.name} is loading...</>}>
+            <Suspense fallback={<Loader />}>
               <Page />
             </Suspense>
           }

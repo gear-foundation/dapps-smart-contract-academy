@@ -1,23 +1,23 @@
-import { Button, Modal } from "@gear-js/ui";
-import { useApp } from "@/app/context";
-import { useGetFTBalance } from "@/app/hooks/use-ft-balance";
-import { Icon } from "@/components/ui/icon";
+import { Button, Modal } from '@gear-js/ui'
+import { useApp } from '@/app/context'
+import { useGetFTBalance } from '@/app/hooks/use-ft-balance'
+import { SpriteIcon } from '@/components/ui/sprite-icon'
 
 type Props = {
-  close: () => void;
-};
+  close: () => void
+}
 
 export const PaymentErrorPopup = ({ close }: Props) => {
-  const { isPending } = useApp();
-  const { handler } = useGetFTBalance();
+  const { isPending } = useApp()
+  const { handler } = useGetFTBalance()
 
   const onClick = () => {
-    handler(onClose);
-  };
+    handler(onClose)
+  }
 
   const onClose = () => {
-    close();
-  };
+    close()
+  }
 
   return (
     <Modal heading="Payment error" close={close}>
@@ -30,11 +30,11 @@ export const PaymentErrorPopup = ({ close }: Props) => {
           className="gap-2 w-full"
           color="primary"
           text="Get Token Balance"
-          icon={() => <Icon name="money" className="w-5 h-5" />}
+          icon={() => <SpriteIcon name="money" className="w-5 h-5" />}
           onClick={onClick}
           disabled={isPending}
         />
       </div>
     </Modal>
-  );
-};
+  )
+}

@@ -1,17 +1,17 @@
-import { TooltipWrapper, Button, buttonStyles } from "@gear-js/ui";
-import clsx from "clsx";
-import { Icon } from "@/components/ui/icon";
+import { TooltipWrapper, Button, buttonStyles } from '@gear-js/ui'
+import { cn } from '@/app/utils'
+import { SpriteIcon } from '@/components/ui/sprite-icon'
 
 export const GetGasBalance = () => {
   return (
     <div className="">
       <TooltipWrapper text="Account gas balance">
         <Button
-          className={clsx("group !p-2.5", buttonStyles.lightGreen)}
+          className={cn('group !p-2.5', buttonStyles.lightGreen)}
           icon={() => (
             <>
-              <Icon name="test-balance" width={20} height={20} />
-              {/*<Icon*/}
+              <SpriteIcon name="test-balance" width={20} height={20} />
+              {/*<SpriteIcon*/}
               {/*  name="plus"*/}
               {/*  width={12}*/}
               {/*  height={12}*/}
@@ -22,5 +22,5 @@ export const GetGasBalance = () => {
         />
       </TooltipWrapper>
     </div>
-  );
-};
+  )
+}

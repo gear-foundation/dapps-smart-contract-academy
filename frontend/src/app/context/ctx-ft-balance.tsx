@@ -6,26 +6,12 @@ import metaLogic from '@/assets/meta/ft_logic.meta.txt'
 import metaStorage from '@/assets/meta/ft_storage.meta.txt'
 import { HexString } from '@polkadot/util/types'
 import { ENV } from '@/app/consts'
-import { useMetadata } from '@/app/hooks/use-metadata'
+import { useProgramMetadata } from '@/app/hooks/use-metadata'
 
-type Program = {
-  programId: HexString
-  metaMain: ProgramMetadata
-  metaLogic: ProgramMetadata
-  metaStorage: ProgramMetadata
-}
-
-const program: Program = {
-  programId: '' as HexString,
-  metaMain: {} as ProgramMetadata,
-  metaLogic: {} as ProgramMetadata,
-  metaStorage: {} as ProgramMetadata,
-}
-
-function useStore(): Program {
-  const { metadata } = useMetadata(meta)
-  const { metadata: metaL } = useMetadata(metaLogic)
-  const { metadata: metaS } = useMetadata(metaStorage)
+function useProgram() {
+  const metadata = useProgramMetadata(meta)
+  const metaL = useProgramMetadata(metaLogic)
+  const metaS = useProgramMetadata(metaStorage)
   return {
     programId: ENV.balance as HexString,
     metaMain: metadata as ProgramMetadata,
@@ -34,9 +20,13 @@ function useStore(): Program {
   }
 }
 
-export const FTBalanceCtx = createContext<Program>(program)
+type Program = ReturnType<typeof useProgram>
+
+export const FTBalanceCtx = createContext<Program>(
+  {} as ReturnType<typeof useProgram>
+)
 
 export function TokensBalanceProvider({ children }: ProviderProps) {
   const { Provider } = FTBalanceCtx
-  return <Provider value={useStore()}>{children}</Provider>
+  return <Provider value={useProgram()}>{children}</Provider>
 }
