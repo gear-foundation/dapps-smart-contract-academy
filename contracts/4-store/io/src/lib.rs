@@ -1,6 +1,6 @@
 #![no_std]
 
-use gmeta::{InOut, Metadata as GMetadata};
+use gmeta::{In, InOut, Metadata as GMetadata};
 use gstd::{prelude::*, ActorId};
 pub type AttributeId = u32;
 pub type Price = u128;
@@ -10,7 +10,7 @@ pub type TransactionId = u64;
 pub struct ProgramMetadata;
 
 impl GMetadata for ProgramMetadata {
-    type Init = InOut<ActorId, ()>;
+    type Init = In<ActorId>;
     type Handle = InOut<StoreAction, StoreEvent>;
     type Reply = ();
     type Others = ();

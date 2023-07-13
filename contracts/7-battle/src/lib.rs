@@ -164,7 +164,7 @@ extern "C" fn init() {
 }
 
 pub async fn get_owner(tmg_id: &ActorId) -> ActorId {
-    let reply: TmgEvent = msg::send_for_reply_as(*tmg_id, TmgAction::Owner, 0)
+    let reply: TmgEvent = msg::send_for_reply_as(*tmg_id, TmgAction::Owner, 0, 0)
         .expect("Error in sending a message `TmgAction::Owner")
         .await
         .expect("Unable to decode TmgEvent");
@@ -199,6 +199,7 @@ async fn get_attributes(tmg_store_id: &ActorId, tmg_id: &TamagotchiId) -> BTreeS
             tamagotchi_id: *tmg_id,
         },
         0,
+        0,
     )
     .expect("Error in sending a message `StoreAction::GetAttributes")
     .await
@@ -214,10 +215,4 @@ async fn get_attributes(tmg_store_id: &ActorId, tmg_id: &TamagotchiId) -> BTreeS
 extern "C" fn state() {
     let battle = unsafe { BATTLE.get_or_insert(Default::default()) };
     msg::reply(battle, 0).expect("Failed to share state");
-}
-
-#[no_mangle]
-extern "C" fn metahash() {
-    let metahash: [u8; 32] = include!("../.metahash");
-    msg::reply(metahash, 0).expect("Failed to share metahash");
 }

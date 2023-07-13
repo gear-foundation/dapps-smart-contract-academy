@@ -8,5 +8,4 @@ fn init_escrow_factory() {
     let escrow_factory = Program::current(&system);
     let res = escrow_factory.send(100, escrow_code_id);
     assert!(!res.main_failed());
-    assert!(res.log().is_empty());
 }

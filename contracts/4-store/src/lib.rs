@@ -189,6 +189,7 @@ async fn transfer_tokens(
             },
         },
         0,
+        0,
     )
     .expect("Error in sending a message `FTokenAction::Message`")
     .await;
@@ -203,10 +204,4 @@ async fn transfer_tokens(
 extern "C" fn state() {
     let store = unsafe { STORE.as_ref().expect("The contract is not initialized") };
     msg::reply(store, 0).expect("Failed to share state");
-}
-
-#[no_mangle]
-extern "C" fn metahash() {
-    let metahash: [u8; 32] = include!("../.metahash");
-    msg::reply(metahash, 0).expect("Failed to share metahash");
 }
